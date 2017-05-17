@@ -34,7 +34,7 @@ function createPkgJson(pkgFile){
 
 }
 
-function createWebpack(file,contents){
+function createFile(file,contents){
   writeFile(file,contents,'utf8');
 }
 
@@ -46,9 +46,11 @@ function init(){
     const createWebpackProd = path.join(process.cwd(),'webpack.config.prod.js');
     const createGulpfile = path.join(process.cwd(),'gulpfile.js');
 
-    createWebpack(createWebpackDev,webpackDev);
-    createWebpack(createWebpackProd,webpackProd);
-    createWebpack(createGulpfile,gulpFile);
+    createFile(createWebpackDev,webpackDev);
+    createFile(createWebpackProd,webpackProd);
+    createFile(createGulpfile,gulpFile);
+
+    exec('npm run copy');
     
 }
 
