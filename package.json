@@ -3,13 +3,6 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {
-    "clean": "rimraf dist",
-    "server": "node server",
-    "start": "webpack-dev-server --content-base",
-    "build": "npm run build:webpack && npm run server",
-    "build:webpack": "npm run clean && webpack --config webpack.config.prod.js"
-  },
   "keywords": [],
   "author": "Ayan Dalal",
   "license": "ISC"
