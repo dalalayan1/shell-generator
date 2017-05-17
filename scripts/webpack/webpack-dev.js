@@ -31,12 +31,8 @@ var config = {
 			test: /\.scss$/,
 			loader: 'style-loader!css-loader!sass-loader',
 			include: path.join(__dirname, 'src')
-		},
-		{
-			test: /\.less$/,
-			loader: 'style-loader!css-loader!less-loader',
-			include: path.join(__dirname, 'src')
 		}
+		
 		]
 	}
 }
