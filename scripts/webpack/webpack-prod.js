@@ -1,4 +1,3 @@
-var path = require('path');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
   template : __dirname + '/src/index_build.html',
@@ -6,9 +5,7 @@ var HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
   inject : 'body'
 });
 
-console.log('running webpack-prod');
-
-var config = {
+module.exports = {
 	entry:[
 		'./src/main.js'
 		],
@@ -29,13 +26,11 @@ var config = {
 			loader:'babel-loader',
 			query:{
 				presets: ["es2015", "react", "stage-0"]
-			},
-			include: path.join(__dirname, 'src')
+			}
 		},
 		{
 			test: /\.scss$/,
-			loader: 'style-loader!css-loader!sass-loader',
-			include: path.join(__dirname, 'src')
+			loader: 'style-loader!css-loader!sass-loader'
 		}
 
 		]
@@ -44,4 +39,4 @@ var config = {
 		HtmlWebpackPluginConfig
 	]
 }
-module.exports = config;
+

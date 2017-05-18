@@ -1,8 +1,5 @@
-var path = require('path');
 
-console.log('running webpack-dev');
-
-var config = {
+module.exports = {
 	entry:[
 		'./src/main.js'
 		],
@@ -16,6 +13,7 @@ var config = {
 		contentBase:'./',
 		port:3001
 	},
+	plugins: [],
 	module: {
 		loaders: [
 		{
@@ -24,16 +22,13 @@ var config = {
 			loader:'babel-loader',
 			query:{
 				presets: ["es2015", "react", "stage-0"]
-			},
-			include: path.join(__dirname, 'src')
+			}
 		},
 		{
 			test: /\.scss$/,
-			loader: 'style-loader!css-loader!sass-loader',
-			include: path.join(__dirname, 'src')
+			loader: 'style-loader!css-loader!sass-loader'
 		}
 		
 		]
 	}
 }
-module.exports = config;

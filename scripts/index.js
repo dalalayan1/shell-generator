@@ -4,10 +4,12 @@ const fs = require('fs');
 const exists = fs.existsSync;
 const readFile = fs.readFileSync;
 const writeFile = fs.writeFileSync;
-const copyDir = require('copy-dir').sync;
 //const defaults = require('lodash/defaultsDeep');
 
-//get contents of the different files to write
+//import utility functions
+const utils = require('./utils');
+
+//import contents of the different files to write
 const pkgjson = path.join(process.cwd(),'package.json');
 const webpackPkg = require('./packageJson/webpack.js');
 const reactPkg = require('./packageJson/react.js');
@@ -16,46 +18,21 @@ const gulpFile = readFile(path.join(process.cwd(),'./scripts/gulp/gulp-file.js')
 const webpackDev = readFile(path.join(process.cwd(),'./scripts/webpack/webpack-dev.js'),'utf8');
 const webpackProd = readFile(path.join(process.cwd(),'./scripts/webpack/webpack-prod.js'),'utf8');
 
-function createPkgJson(pkgFile){
-    writeFile(pkgjson,JSON.stringify({
-    "name": "shell-gen",
-    "version": "1.0.0",
-    "description": "",
-    "main": "index.js",
-    "scripts": {
-      "test": "echo \"Error: no test specified\" && exit 1"
-    },
-    "keywords": [],
-    "author": "",
-    "license": "ISC",
-    "scripts": (true && Object.assign({},pkgFile.scripts,webpackPkg.scripts)),
-    "dependencies": pkgFile.dependencies,
-    "devDependencies": (true && Object.assign({},pkgFile.devDependencies,webpackPkg.devDependencies)),
-  },null,2),'utf8');
-
-}
-
-function createFile(file,contents){
-  writeFile(file,contents,'utf8');
-}
-
-function copyDirectory(source,dest){
-  copyDir(source,dest);
-}
-
 function init(){
-    //  if(exists(pkgjson)){
-    //   createPkgJson(reactReduxPkg);
+    //if(exists(pkgjson)){
+    //   utils.createPkgJson(pkgjson,reactReduxPkg);
     // }
     // const createWebpackDev = path.join(process.cwd(),'webpack.config.js');
-    // const createWebpackProd = path.join(process.cwd(),'webpack.config.prod.js');
+     const createWebpackProd = path.join(process.cwd(),'webpack.config.prod.js');
     // const createGulpfile = path.join(process.cwd(),'gulpfile.js');
 
-    // createFile(createWebpackDev,webpackDev);
-    // createFile(createWebpackProd,webpackProd);
-    // createFile(createGulpfile,gulpFile);
+    //utils.createFile(createWebpackDev,webpackDev);
+     utils.createFile(createWebpackProd,webpackProd);
+    // utils.createFile(createGulpfile,gulpFile);
 
-    //copyDirectory('./scripts/common-files','./');
+    //utils.copyDirectory('./scripts/common-files','./');
+      utils.insertStyleLint(createWebpackProd,'utf8');
+    
     
 }
 
