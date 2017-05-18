@@ -19,20 +19,29 @@ const webpackDev = readFile(path.join(process.cwd(),'./scripts/webpack/webpack-d
 const webpackProd = readFile(path.join(process.cwd(),'./scripts/webpack/webpack-prod.js'),'utf8');
 
 function init(){
-    //if(exists(pkgjson)){
-    //   utils.createPkgJson(pkgjson,reactReduxPkg);
-    // }
+    if(exists(pkgjson)){
+      utils.createPkgJson(pkgjson,reactReduxPkg,webpackPkg);
+    }
     // const createWebpackDev = path.join(process.cwd(),'webpack.config.js');
      const createWebpackProd = path.join(process.cwd(),'webpack.config.prod.js');
     // const createGulpfile = path.join(process.cwd(),'gulpfile.js');
 
     //utils.createFile(createWebpackDev,webpackDev);
-     utils.createFile(createWebpackProd,webpackProd);
+    // utils.createFile(createWebpackProd,webpackDev);
     // utils.createFile(createGulpfile,gulpFile);
 
     //utils.copyDirectory('./scripts/common-files','./');
       utils.insertStyleLint(createWebpackProd,'utf8');
-    
+
+    // const pack = path.join(process.cwd(),'package.json');
+    // var wholepk = require(pack);
+    // var pk = require(pack)["devDependencies"];
+    // var pk1 = Object.assign({},pk,{"stylelint-webpack-plugin":"*"});
+    // pk = pk1;
+    // wholepk["devDependencies"] = pk;
+    // writeFile(pack,JSON.stringify(wholepk,0,2));
+
+    //console.log('pkg ',wholepk);
     
 }
 

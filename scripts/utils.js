@@ -6,20 +6,39 @@ const readFile = fs.readFileSync;
 const writeFile = fs.writeFileSync;
 
 var insertStyleLint = function insertStyleLint(file) {
-    var contents = readFile(file,'utf8').split('module.exports = ');
-    var requires = contents[0];
+
+    var contents,requires,configs,plugins,insertPlugins,finalWebpack;
+
+    contents = readFile(file,'utf8').split('module.exports = ');
+    requires = contents[0];
     requires = requires + 'var StyleLintPlugin = require("stylelint-webpack-plugin");\n';
-    var configs = contents[1];
-    var plugins = configs.split('plugins: [');
-    var insertPlugins = plugins[1];
-    insertPlugins = '\n\t\tnew StyleLintPlugin({\n\t\tconfigFile: _path,\n\t\tfailOnError: false\n\t}),\n' + insertPlugins;
-    var finalWebpack = requires + '\nmodule.exports = ' + plugins[0] + '\n\tplugins: [' + insertPlugins;
-    console.log('contents ',finalWebpack);
+    configs = contents[1];
+    plugins = configs.split('plugins: [');
+    insertPlugins = plugins[1];
+    insertPlugins = '\n\t\tnew StyleLintPlugin({\n\t\tconfigFile: \'./.stylelintrc\',\n\t\tfailOnError: false\n\t}),\n' + insertPlugins;
+    
+    finalWebpack = requires + '\nmodule.exports = ' + plugins[0] + '\n\tplugins: [' + insertPlugins;
+    
     writeFile(file,finalWebpack,'utf8');
 
+    updatePackageJson("stylelint-webpack-plugin");
+
+    copyDir('./scripts/style-linting','./');
 }
 
-var createPkgJson = function createPkgJson(pkgjson,pkgFile){
+var updatePackageJson = function updatePackageJson(module){
+    var newModule = {
+      [module] : "*"
+    }
+    var packageJson = path.join(process.cwd(),'package.json');
+    var packageJsonContents = require(packageJson);
+    var pkgDevDependencies = packageJsonContents["devDependencies"];
+    pkgDevDependencies = Object.assign({},pkgDevDependencies,newModule);
+    packageJsonContents["devDependencies"] = pkgDevDependencies;
+    writeFile(packageJson,JSON.stringify(packageJsonContents,0,2));
+}
+
+var createPkgJson = function createPkgJson(pkgjson,pkgFile,webpackPkg){
     writeFile(pkgjson,JSON.stringify({
     "name": "shell-gen",
     "version": "1.0.0",
