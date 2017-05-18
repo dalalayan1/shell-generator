@@ -4,7 +4,8 @@ const fs = require('fs');
 const exists = fs.existsSync;
 const readFile = fs.readFileSync;
 const writeFile = fs.writeFileSync;
-const defaults = require('lodash/defaultsDeep');
+const copyDir = require('copy-dir').sync;
+//const defaults = require('lodash/defaultsDeep');
 
 //get contents of the different files to write
 const pkgjson = path.join(process.cwd(),'package.json');
@@ -38,19 +39,23 @@ function createFile(file,contents){
   writeFile(file,contents,'utf8');
 }
 
+function copyDirectory(source,dest){
+  copyDir(source,dest);
+}
+
 function init(){
-     if(exists(pkgjson)){
-      createPkgJson(reactReduxPkg);
-    }
-    const createWebpackDev = path.join(process.cwd(),'webpack.config.js');
-    const createWebpackProd = path.join(process.cwd(),'webpack.config.prod.js');
-    const createGulpfile = path.join(process.cwd(),'gulpfile.js');
+    //  if(exists(pkgjson)){
+    //   createPkgJson(reactReduxPkg);
+    // }
+    // const createWebpackDev = path.join(process.cwd(),'webpack.config.js');
+    // const createWebpackProd = path.join(process.cwd(),'webpack.config.prod.js');
+    // const createGulpfile = path.join(process.cwd(),'gulpfile.js');
 
-    createFile(createWebpackDev,webpackDev);
-    createFile(createWebpackProd,webpackProd);
-    createFile(createGulpfile,gulpFile);
+    // createFile(createWebpackDev,webpackDev);
+    // createFile(createWebpackProd,webpackProd);
+    // createFile(createGulpfile,gulpFile);
 
-    exec('npm run copy');
+    //copyDirectory('./scripts/common-files','./');
     
 }
 
