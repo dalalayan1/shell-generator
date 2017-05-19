@@ -16,25 +16,22 @@ const pkgjson = path.join(process.cwd(),'package.json');
 const webpackPkg = require('./packageJson/webpack.js');
 const reactPkg = require('./packageJson/react.js');
 const reactReduxPkg = require('./packageJson/react-redux.js');
-const gulpFile = readFile(path.join(process.cwd(),'./scripts/gulp/gulp-file.js'),'utf8');
-const webpackDev = readFile(path.join(process.cwd(),'./scripts/webpack/webpack-dev.js'),'utf8');
-const webpackProd = readFile(path.join(process.cwd(),'./scripts/webpack/webpack-prod.js'),'utf8');
 
 function init(){
     if(exists(pkgjson)){
       utils.createPkgJson(pkgjson,reactReduxPkg,webpackPkg);
     }
     // const createWebpackDev = path.join(process.cwd(),'webpack.config.js');
-     const createWebpackProd = path.join(process.cwd(),'webpack.config.prod.js');
+    // const createWebpackProd = path.join(process.cwd(),'webpack.config.prod.js');
     // const createGulpfile = path.join(process.cwd(),'gulpfile.js');
 
     //utils.createFile(createWebpackDev,webpackDev);
-     fsUtils.createFile(createWebpackProd,webpackDev);
+     fsUtils.copyDirectory('./scripts/webpack','./');
     // utils.createFile(createGulpfile,gulpFile);
 
     //utils.copyDirectory('./scripts/common-files','./');
-      lints.insertStyleLint(createWebpackProd);
-      lints.insertEsLint(createWebpackProd);
+      lints.insertStyleLint('./webpack.config.prod.js');
+      lints.insertEsLint('./webpack.config.prod.js');
 
     // const pack = path.join(process.cwd(),'package.json');
     // var wholepk = require(pack);
