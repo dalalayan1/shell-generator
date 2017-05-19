@@ -7,7 +7,9 @@ const writeFile = fs.writeFileSync;
 //const defaults = require('lodash/defaultsDeep');
 
 //import utility functions
-const utils = require('./utils');
+const utils = require('./utils/utils.js');
+const lints = require('./utils/lint.js');
+const fsUtils = require('./utils/fs-utils.js');
 
 //import contents of the different files to write
 const pkgjson = path.join(process.cwd(),'package.json');
@@ -27,11 +29,12 @@ function init(){
     // const createGulpfile = path.join(process.cwd(),'gulpfile.js');
 
     //utils.createFile(createWebpackDev,webpackDev);
-    // utils.createFile(createWebpackProd,webpackDev);
+     fsUtils.createFile(createWebpackProd,webpackDev);
     // utils.createFile(createGulpfile,gulpFile);
 
     //utils.copyDirectory('./scripts/common-files','./');
-      utils.insertStyleLint(createWebpackProd,'utf8');
+      lints.insertStyleLint(createWebpackProd);
+      lints.insertEsLint(createWebpackProd);
 
     // const pack = path.join(process.cwd(),'package.json');
     // var wholepk = require(pack);

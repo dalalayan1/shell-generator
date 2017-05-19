@@ -5,26 +5,7 @@ const exists = fs.existsSync;
 const readFile = fs.readFileSync;
 const writeFile = fs.writeFileSync;
 
-var insertStyleLint = function insertStyleLint(file) {
-
-    var contents,requires,configs,plugins,insertPlugins,finalWebpack;
-
-    contents = readFile(file,'utf8').split('module.exports = ');
-    requires = contents[0];
-    requires = requires + 'var StyleLintPlugin = require("stylelint-webpack-plugin");\n';
-    configs = contents[1];
-    plugins = configs.split('plugins: [');
-    insertPlugins = plugins[1];
-    insertPlugins = '\n\t\tnew StyleLintPlugin({\n\t\tconfigFile: \'./.stylelintrc\',\n\t\tfailOnError: false\n\t}),\n' + insertPlugins;
-    
-    finalWebpack = requires + '\nmodule.exports = ' + plugins[0] + '\n\tplugins: [' + insertPlugins;
-    
-    writeFile(file,finalWebpack,'utf8');
-
-    updatePackageJson("stylelint-webpack-plugin");
-
-    copyDir('./scripts/style-linting','./');
-}
+const fsUtils = require('./fs-utils.js');
 
 var updatePackageJson = function updatePackageJson(module){
     var newModule = {
@@ -35,11 +16,11 @@ var updatePackageJson = function updatePackageJson(module){
     var pkgDevDependencies = packageJsonContents["devDependencies"];
     pkgDevDependencies = Object.assign({},pkgDevDependencies,newModule);
     packageJsonContents["devDependencies"] = pkgDevDependencies;
-    writeFile(packageJson,JSON.stringify(packageJsonContents,0,2));
+    fsUtils.writeToFile(packageJson,JSON.stringify(packageJsonContents,0,2));
 }
 
 var createPkgJson = function createPkgJson(pkgjson,pkgFile,webpackPkg){
-    writeFile(pkgjson,JSON.stringify({
+    fsUtils.writeToFile(pkgjson,JSON.stringify({
     "name": "shell-gen",
     "version": "1.0.0",
     "description": "",
@@ -53,21 +34,11 @@ var createPkgJson = function createPkgJson(pkgjson,pkgFile,webpackPkg){
     "scripts": (true && Object.assign({},pkgFile.scripts,webpackPkg.scripts)),
     "dependencies": pkgFile.dependencies,
     "devDependencies": (true && Object.assign({},pkgFile.devDependencies,webpackPkg.devDependencies)),
-  },null,2),'utf8');
+  },null,2));
 
-}
-
-var createFile = function createFile(file,contents){
-  writeFile(file,contents,'utf8');
-}
-
-var copyDirectory = function copyDirectory(source,dest){
-  copyDir(source,dest);
 }
 
 module.exports = {
-    copyDirectory,
-    createFile,
     createPkgJson,
-    insertStyleLint
+    updatePackageJson
 }
