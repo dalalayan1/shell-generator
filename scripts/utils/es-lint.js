@@ -1,6 +1,25 @@
 const fsUtils = require('./fs-utils.js');
 const utils = require('./utils.js');
 
+var insertEsLintForGulp = function insertEsLintForGulp(file){
+
+    var contents,insertTask,appendToDefault,finalGulp;
+
+    contents = fsUtils.readTheFile(file).split('gulp.task("default",[');
+
+    insertTask = 'var gulpEslint = require(\'gulp-eslint\');\n gulp.task(\'es-lint\', function () {\n\treturn gulp.src(\'dist/js/*.js\')\n\t\t.pipe(gulpEslint())\n\t\t.pipe(gulpEslint.format())\n\t\t.pipe(gulpEslint.failAfterError());\n\t});\n' + contents[0];
+    
+    appendToDefault = '"es-lint",' + contents[1];
+
+    finalGulp = insertTask + '\ngulp.task("default",[' + appendToDefault;
+
+    fsUtils.writeToFile(file,finalGulp);
+
+    fsUtils.copyDirectory('./scripts/es-linting','./');
+
+    utils.updatePackageJson("gulp-eslint");
+}
+
 var insertEsLintForWebpack = function insertEsLintForWebpack(file) {
 
     var contents,requires,configs,plugins,insertPlugins,finalWebpack;
@@ -19,5 +38,6 @@ var insertEsLintForWebpack = function insertEsLintForWebpack(file) {
 }
 
 module.exports = {
+    insertEsLintForGulp,
     insertEsLintForWebpack
 }

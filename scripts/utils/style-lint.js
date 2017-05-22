@@ -3,16 +3,19 @@ const utils = require('./utils.js');
 
 var insertStyleLintForGulp = function insertStyleLintForGulp(file){
 
-    var contents,insertPreloader,appendToDefault,finalWebpack;
+    var contents,insertTask,appendToDefault,finalGulp;
 
     contents = fsUtils.readTheFile(file).split('gulp.task("default",[');
 
-    insertPreloader = 'var gulpStylelint = require(\'gulp-stylelint\');\n gulp.task(\'lint-css\', function () {\n\treturn gulp.src(\'dist/css/*.css\')\n\t\t.pipe(gulpStylelint({\n\t\t\tfailAfterError: false,\n\t\t\treporters: [\n\t\t\t{formatter: \'string\', console: true}\n\t\t]}))\n\t});\n' + contents[0];
-    appendToDefault = '"lint-css",' + contents[1];
+    insertTask = 'var gulpStylelint = require(\'gulp-stylelint\');\n gulp.task(\'css-lint\', function () {\n\treturn gulp.src(\'dist/css/*.css\')\n\t\t.pipe(gulpStylelint({\n\t\t\tfailAfterError: false,\n\t\t\treporters: [\n\t\t\t{formatter: \'string\', console: true}\n\t\t]}))\n\t});\n' + contents[0];
+    
+    appendToDefault = '"css-lint",' + contents[1];
 
-    finalWebpack = insertPreloader + '\ngulp.task("default",[' + appendToDefault;
+    finalGulp = insertTask + '\ngulp.task("default",[' + appendToDefault;
 
-    fsUtils.writeToFile(file,finalWebpack);
+    fsUtils.writeToFile(file,finalGulp);
+
+     fsUtils.copyDirectory('./scripts/style-linting','./');
 
     utils.updatePackageJson("gulp-stylelint");
 }

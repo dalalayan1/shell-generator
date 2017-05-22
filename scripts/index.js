@@ -8,6 +8,7 @@ const writeFile = fs.writeFileSync;
 
 //import utility functions
 const utils = require('./utils/utils.js');
+const esLints = require('./utils/es-lint.js');
 const styleLints = require('./utils/style-lint.js');
 const fsUtils = require('./utils/fs-utils.js');
 const cssPreloaders = require('./utils/css-preloaders.js');
@@ -28,8 +29,9 @@ function init(){
 
     //utils.createFile(createWebpackDev,webpackDev);
      fsUtils.copyDirectory('./scripts/gulp','./');
+     esLints.insertEsLintForGulp('./gulpfile.js')
     // utils.createFile(createGulpfile,gulpFile);
-    styleLints.insertStyleLintForGulp('./gulpfile.js')
+    //styleLints.insertStyleLintForGulp('./gulpfile.js')
     //cssPreloaders.preloaderForWebpack('./webpack.config.js','less',/\.less$/);
     // cssPreloaders.preloaderForGulp('./gulpfile.js','less');
 
