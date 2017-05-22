@@ -7,11 +7,23 @@ var insertStyleLintForGulp = function insertStyleLintForGulp(file){
 
     contents = fsUtils.readTheFile(file).split('gulp.task("default",[');
 
-    insertTask = 'var gulpStylelint = require(\'gulp-stylelint\');\n gulp.task(\'css-lint\', function () {\n\treturn gulp.src(\'dist/css/*.css\')\n\t\t.pipe(gulpStylelint({\n\t\t\tfailAfterError: false,\n\t\t\treporters: [\n\t\t\t{formatter: \'string\', console: true}\n\t\t]}))\n\t});\n' + contents[0];
+    insertTask = 
+    `var gulpStylelint = require('gulp-stylelint');
+
+    gulp.task('css-lint', function () {
+        return gulp.src('dist/css/*.css')
+                .pipe(gulpStylelint({
+                        failAfterError: false,
+                        reporters: [{
+                            formatter: 'string', 
+                            console: true
+                        }
+                    ]}))
+                });\n\n` + contents[0];
     
     appendToDefault = '"css-lint",' + contents[1];
 
-    finalGulp = insertTask + '\ngulp.task("default",[' + appendToDefault;
+    finalGulp = insertTask + 'gulp.task("default",[' + appendToDefault;
 
     fsUtils.writeToFile(file,finalGulp);
 
@@ -26,13 +38,17 @@ var insertStyleLintForWebpack = function insertStyleLintForWebpack(file) {
 
     contents = fsUtils.readTheFile(file,'utf8').split('module.exports = ');
     requires = contents[0];
-    requires = requires + 'var StyleLintPlugin = require("stylelint-webpack-plugin");\n';
+    requires = requires + 'var StyleLintPlugin = require("stylelint-webpack-plugin");\n\n';
     configs = contents[1];
     plugins = configs.split('plugins: [');
     insertPlugins = plugins[1];
-    insertPlugins = '\n\t\tnew StyleLintPlugin({\n\t\tconfigFile: \'./.stylelintrc\',\n\t\tfailOnError: false\n\t}),\n' + insertPlugins;
+    insertPlugins = `
+            new StyleLintPlugin({
+                configFile: './.stylelintrc',
+                failOnError: false
+            }),\n\t` + insertPlugins;
     
-    finalWebpack = requires + '\nmodule.exports = ' + plugins[0] + '\n\tplugins: [' + insertPlugins;
+    finalWebpack = requires + 'module.exports = ' + plugins[0] + 'plugins: [' + insertPlugins;
     
     fsUtils.writeToFile(file,finalWebpack);
 

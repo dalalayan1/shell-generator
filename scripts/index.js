@@ -28,16 +28,17 @@ function init(){
     // const createGulpfile = path.join(process.cwd(),'gulpfile.js');
 
     //utils.createFile(createWebpackDev,webpackDev);
-     fsUtils.copyDirectory('./scripts/gulp','./');
-     esLints.insertEsLintForGulp('./gulpfile.js')
+    //fsUtils.copyDirectory('./scripts/gulp','./');
+    //  esLints.insertEsLintForGulp('./gulpfile.js');
     // utils.createFile(createGulpfile,gulpFile);
-    //styleLints.insertStyleLintForGulp('./gulpfile.js')
-    //cssPreloaders.preloaderForWebpack('./webpack.config.js','less',/\.less$/);
-    // cssPreloaders.preloaderForGulp('./gulpfile.js','less');
+   // styleLints.insertStyleLintForGulp('./gulpfile.js')
+   //cssPreloaders.preloaderForGulp('./gulpfile.js','less');
 
-    //utils.copyDirectory('./scripts/common-files','./');
-     // lints.insertStyleLint('./webpack.config.prod.js');
-     // lints.insertEsLint('./webpack.config.prod.js');
+    fsUtils.copyDirectory('./scripts/webpack','./');
+    cssPreloaders.preloaderForWebpack('./webpack.config.js','less',/\.less$/);
+    //  esLints.insertEsLintForWebpack('./webpack.config.js');
+    //  styleLints.insertStyleLintForWebpack('./webpack.config.js');
+
 
     
 }

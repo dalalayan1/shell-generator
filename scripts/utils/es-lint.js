@@ -7,11 +7,19 @@ var insertEsLintForGulp = function insertEsLintForGulp(file){
 
     contents = fsUtils.readTheFile(file).split('gulp.task("default",[');
 
-    insertTask = 'var gulpEslint = require(\'gulp-eslint\');\n gulp.task(\'es-lint\', function () {\n\treturn gulp.src(\'dist/js/*.js\')\n\t\t.pipe(gulpEslint())\n\t\t.pipe(gulpEslint.format())\n\t\t.pipe(gulpEslint.failAfterError());\n\t});\n' + contents[0];
+    insertTask = 
+    `var gulpEslint = require('gulp-eslint');
+    
+    gulp.task('es-lint', function () {
+        return gulp.src('dist/js/*.js')
+                .pipe(gulpEslint())
+                .pipe(gulpEslint.format())
+                .pipe(gulpEslint.failAfterError());
+            });\n\n` + contents[0];
     
     appendToDefault = '"es-lint",' + contents[1];
 
-    finalGulp = insertTask + '\ngulp.task("default",[' + appendToDefault;
+    finalGulp = insertTask + 'gulp.task("default",[' + appendToDefault;
 
     fsUtils.writeToFile(file,finalGulp);
 
@@ -27,9 +35,17 @@ var insertEsLintForWebpack = function insertEsLintForWebpack(file) {
     contents = fsUtils.readTheFile(file).split('module: {');
     beforeModule = contents[0];
     insertRule = contents[1];
-    insertRule = '\n\t\trules: [\n\t\t{\n\t\t\tenforce: "pre",\n\t\t\ttest: /\.js$/,\n\t\t\texclude: /node_modules/,\n\t\t\tloader: "eslint-loader"\n\t\t}\n\t\t],' + insertRule;
+    insertRule = 
+    `rules: [
+                {
+                    enforce: "pre",
+                    test: /\.js$/,
+                    exclude: /node_modules/,
+                    loader: "eslint-loader"
+                }
+            ],` + insertRule;
     
-    finalWebpack = beforeModule + '\tmodule: {' +insertRule;
+    finalWebpack = beforeModule + 'module: {\n\t\t' +insertRule;
     
     fsUtils.writeToFile(file,finalWebpack);
 

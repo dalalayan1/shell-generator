@@ -16,19 +16,14 @@ module.exports = {
 	plugins: [],
 	module: {
 		loaders: [
-		{
-			test:/\.js$/,
-			exclude:/node_modules/,
-			loader:'babel-loader',
-			query:{
-				presets: ["es2015", "react", "stage-0"]
+			{
+				test:/\.js$/,
+				exclude:/node_modules/,
+				loader:'babel-loader',
+				query:{
+					presets: ["es2015", "react", "stage-0"]
+				}
 			}
-		},
-		{
-			test: /\.scss$/,
-			loader: 'style-loader!css-loader!sass-loader'
-		}
-		
 		]
 	}
 }

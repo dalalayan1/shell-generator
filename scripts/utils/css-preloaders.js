@@ -7,7 +7,14 @@ var preloaderForGulp = function preloaderForGulp(file,option){
 
     contents = fsUtils.readTheFile(file).split('gulp.task("default",[');
 
-    insertPreloader = 'var '+option+' = require(\'gulp-'+option+'\');\n gulp.task('+option+', function () {\n\tgulp.src(\'./src/styles/*.'+option+'\')\n\t\t.pipe('+option+'())\n\t\t.pipe(gulp.dest(\'dist/css\'));\n\t});\n' + contents[0];
+    insertPreloader = 
+    `var `+option+` = require('gulp-`+option+`');
+    
+    gulp.task(`+option+`, function () {
+        gulp.src('./src/styles/*.`+option+`')
+            .pipe(`+option+`())
+            .pipe(gulp.dest('dist/css'));
+        });\n\n` + contents[0];
 
     appendToDefault = '"' + option + '",' + contents[1];
 
@@ -24,9 +31,13 @@ var preloaderForWebpack = function preloaderForWebpack(file,option,regex){
 
     contents = fsUtils.readTheFile(file).split('loaders: [');
 
-    insertPreloader = '\t\t{\n\t\t\ttest: '+regex+',\n\t\t\tloader: \'style-loader!css-loader!'+option+'-loader\'\n\t\t},'+contents[1];
+    insertPreloader = 
+          `{
+                test: `+regex+`,
+                loader: 'style-loader!css-loader!`+option+`-loader'
+            },`+contents[1];
 
-    finalWebpack = contents[0] + 'loaders: [\n' +insertPreloader;
+    finalWebpack = contents[0] + 'loaders: [\n\t\t\t' +insertPreloader;
 
     fsUtils.writeToFile(file,finalWebpack);
 
