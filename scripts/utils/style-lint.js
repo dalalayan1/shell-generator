@@ -1,24 +1,23 @@
 const fsUtils = require('./fs-utils.js');
 const utils = require('./utils.js');
 
-var insertEsLint = function insertEsLint(file) {
+var insertStyleLintForGulp = function insertStyleLintForGulp(file){
 
-    var contents,requires,configs,plugins,insertPlugins,finalWebpack;
+    var contents,insertPreloader,appendToDefault,finalWebpack;
 
-    contents = fsUtils.readTheFile(file).split('module: {');
-    beforeModule = contents[0];
-    insertRule = contents[1];
-    insertRule = '\n\t\trules: [\n\t\t{\n\t\t\tenforce: "pre",\n\t\t\ttest: /\.js$/,\n\t\t\texclude: /node_modules/,\n\t\t\tloader: "eslint-loader"\n\t\t}\n\t\t],' + insertRule;
-    
-    finalWebpack = beforeModule + '\tmodule: {' +insertRule;
-    
+    contents = fsUtils.readTheFile(file).split('gulp.task("default",[');
+
+    insertPreloader = 'var gulpStylelint = require(\'gulp-stylelint\');\n gulp.task(\'lint-css\', function () {\n\treturn gulp.src(\'dist/css/*.css\')\n\t\t.pipe(gulpStylelint({\n\t\t\tfailAfterError: false,\n\t\t\treporters: [\n\t\t\t{formatter: \'string\', console: true}\n\t\t]}))\n\t});\n' + contents[0];
+    appendToDefault = '"lint-css",' + contents[1];
+
+    finalWebpack = insertPreloader + '\ngulp.task("default",[' + appendToDefault;
+
     fsUtils.writeToFile(file,finalWebpack);
 
-    utils.updatePackageJson("eslint-loader");
-
+    utils.updatePackageJson("gulp-stylelint");
 }
 
-var insertStyleLint = function insertStyleLint(file) {
+var insertStyleLintForWebpack = function insertStyleLintForWebpack(file) {
 
     var contents,requires,configs,plugins,insertPlugins,finalWebpack;
 
@@ -42,6 +41,6 @@ var insertStyleLint = function insertStyleLint(file) {
 
 
 module.exports = {
-    insertEsLint,
-    insertStyleLint
+    insertStyleLintForGulp,
+    insertStyleLintForWebpack
 }
