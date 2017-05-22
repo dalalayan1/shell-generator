@@ -10,6 +10,7 @@ const writeFile = fs.writeFileSync;
 const utils = require('./utils/utils.js');
 const lints = require('./utils/lint.js');
 const fsUtils = require('./utils/fs-utils.js');
+const cssPreloaders = require('./utils/css-preloaders.js');
 
 //import contents of the different files to write
 const pkgjson = path.join(process.cwd(),'package.json');
@@ -26,22 +27,16 @@ function init(){
     // const createGulpfile = path.join(process.cwd(),'gulpfile.js');
 
     //utils.createFile(createWebpackDev,webpackDev);
-     fsUtils.copyDirectory('./scripts/webpack','./');
+     fsUtils.copyDirectory('./scripts/gulp','./');
     // utils.createFile(createGulpfile,gulpFile);
 
+    //cssPreloaders.preloaderForWebpack('./webpack.config.js','less',/\.less$/);
+     cssPreloaders.preloaderForGulp('./gulpfile.js','less');
+
     //utils.copyDirectory('./scripts/common-files','./');
-      lints.insertStyleLint('./webpack.config.prod.js');
-      lints.insertEsLint('./webpack.config.prod.js');
+     // lints.insertStyleLint('./webpack.config.prod.js');
+     // lints.insertEsLint('./webpack.config.prod.js');
 
-    // const pack = path.join(process.cwd(),'package.json');
-    // var wholepk = require(pack);
-    // var pk = require(pack)["devDependencies"];
-    // var pk1 = Object.assign({},pk,{"stylelint-webpack-plugin":"*"});
-    // pk = pk1;
-    // wholepk["devDependencies"] = pk;
-    // writeFile(pack,JSON.stringify(wholepk,0,2));
-
-    //console.log('pkg ',wholepk);
     
 }
 
