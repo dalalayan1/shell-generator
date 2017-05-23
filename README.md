@@ -1,6 +1,7 @@
 # shell-generator
+gets prompts from the user, talks to CLI through Node and generates a project.
 
-### packages need pre-setup 
+### packages needed 
 copy-dir - to copy an entire directory</br>
 inquirer - to create prompts
 

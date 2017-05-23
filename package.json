@@ -1,10 +1,10 @@
 {
   "name": "shell-generator",
   "version": "1.0.0",
-  "description": "",
+  "description": "gets prompts from the user, talks to CLI through Node and generates a project",
   "main": "index.js",
   "scripts": {
-    "pregenerate": "rm -rf node_modules && npm i",
+    "pregenerate": "npm i",
     "generate": "node scripts",
     "postgenerate": "rm -rf scripts && rm -rf node_modules && npm i"
   },
