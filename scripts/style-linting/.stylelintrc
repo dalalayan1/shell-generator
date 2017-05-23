@@ -1,19 +1,60 @@
 {
-  "rules": {
-    "block-no-empty": null,
-    "color-no-invalid-hex": true,
-    "comment-empty-line-before": [ "always", {
-      "ignore": ["stylelint-command", "after-comment"]
-    } ],
-    "declaration-colon-space-after": "always",
-    "indentation": ["tab", {
-      "except": ["value"]
-    }],
-    "max-empty-lines": 2,
-    "rule-nested-empty-line-before": [ "always", {
-      "except": ["first-nested"],
-      "ignore": ["after-comment"]
-    } ],
-    "unit-whitelist": ["em", "rem", "%", "s"]
-  }
+    "rules": {
+        "color-hex-case": "lower",
+        "color-hex-length": "short",
+        "color-named": "never",
+        "color-no-invalid-hex": true,
+        "function-name-case": [
+            "lower",
+            {
+                "ignoreFunctions": [
+                    "/^DXImageTransform/"
+                ]
+            }
+        ],
+        "function-parentheses-space-inside": "never",
+        "function-url-quotes": "always",
+        "function-url-scheme-whitelist": [
+            "data"
+        ],
+        "number-no-trailing-zeros": true,
+        "length-zero-no-unit": true,
+        "unit-case": "lower",
+        "unit-no-unknown": true,
+        "shorthand-property-no-redundant-values": true,
+        "property-case": "lower",
+        "property-no-unknown": [
+            true
+        ],
+        "declaration-bang-space-after": "never",
+        "declaration-bang-space-before": "always",
+        "declaration-colon-space-after": "always",
+        "declaration-colon-space-before": "never",
+        "declaration-property-value-blacklist": {
+            "/^border(?:-(?:top|right|bottom|left))$/": [
+                "none"
+            ]
+        },
+        "declaration-block-properties-order": [
+            "alphabetical"
+        ],
+        "block-no-empty": true,
+        "block-opening-brace-space-before": "always",
+        "selector-no-empty": true,
+        "selector-pseudo-class-parentheses-space-inside": "never",
+        "selector-list-comma-newline-after": "always-multi-line",
+        "media-feature-parentheses-space-inside": "never",
+        "indentation": [
+            2,
+            {
+                "except": [
+                    "value"
+                ],
+                "ignore": [
+                    "inside-parens"
+                ]
+            }
+        ],
+        "no-extra-semicolons": true
+    }
 }

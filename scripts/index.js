@@ -23,21 +23,19 @@ function init(){
     if(exists(pkgjson)){
       utils.createPkgJson(pkgjson,reactReduxPkg,webpackPkg);
     }
-    // const createWebpackDev = path.join(process.cwd(),'webpack.config.js');
-    // const createWebpackProd = path.join(process.cwd(),'webpack.config.prod.js');
-    // const createGulpfile = path.join(process.cwd(),'gulpfile.js');
 
-    //utils.createFile(createWebpackDev,webpackDev);
     //fsUtils.copyDirectory('./scripts/gulp','./');
     //  esLints.insertEsLintForGulp('./gulpfile.js');
     // utils.createFile(createGulpfile,gulpFile);
    // styleLints.insertStyleLintForGulp('./gulpfile.js')
    //cssPreloaders.preloaderForGulp('./gulpfile.js','less');
 
+    fsUtils.copyDirectory('./scripts/skeleton/pure-react','./');
+    //fsUtils.copyDirectory('./scripts/devServer','./');
     fsUtils.copyDirectory('./scripts/webpack','./');
     cssPreloaders.preloaderForWebpack('./webpack.config.js','less',/\.less$/);
-    //  esLints.insertEsLintForWebpack('./webpack.config.js');
-    //  styleLints.insertStyleLintForWebpack('./webpack.config.js');
+    esLints.insertEsLintForWebpack('./webpack.config.js');
+    styleLints.insertStyleLintForWebpack('./webpack.config.js');
 
 
     

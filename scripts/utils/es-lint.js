@@ -11,7 +11,7 @@ var insertEsLintForGulp = function insertEsLintForGulp(file){
     `var gulpEslint = require('gulp-eslint');
     
     gulp.task('es-lint', function () {
-        return gulp.src('dist/js/*.js')
+        return gulp.src('src/**/*.js') 
                 .pipe(gulpEslint())
                 .pipe(gulpEslint.format())
                 .pipe(gulpEslint.failAfterError());
@@ -25,7 +25,7 @@ var insertEsLintForGulp = function insertEsLintForGulp(file){
 
     fsUtils.copyDirectory('./scripts/es-linting','./');
 
-    utils.updatePackageJson("gulp-eslint");
+    utils.updatePackageJson(["gulp-eslint"]);
 }
 
 var insertEsLintForWebpack = function insertEsLintForWebpack(file) {
@@ -39,8 +39,14 @@ var insertEsLintForWebpack = function insertEsLintForWebpack(file) {
     `rules: [
                 {
                     enforce: "pre",
+                    test:  /.js$/,
+                    exclude: [/node_modules/,/\.scss$/,/\.less$/],
+                    loader: "jsxhint-loader"
+                },
+                {
+                    enforce: "pre",
                     test: /\.js$/,
-                    exclude: /node_modules/,
+                    exclude: [/node_modules/,/\.scss$/,/\.less$/],
                     loader: "eslint-loader"
                 }
             ],` + insertRule;
@@ -49,7 +55,7 @@ var insertEsLintForWebpack = function insertEsLintForWebpack(file) {
     
     fsUtils.writeToFile(file,finalWebpack);
 
-    utils.updatePackageJson("eslint-loader");
+    utils.updatePackageJson(["jsxhint-loader","jshint","eslint-loader","eslint"]);
 
 }
 

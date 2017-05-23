@@ -6,7 +6,7 @@
   "scripts": {
     "preGenerate": "npm i copy-dir",
     "generate": "node scripts",
-    "postgenerate": "rm -rf scripts && rm -rf node_modules && npm i"
+    "postgenerate": "rm -rf scripts && rm -rf node_modules && npm i && npm start"
   },
   "keywords": [],
   "author": "Ayan Dalal",

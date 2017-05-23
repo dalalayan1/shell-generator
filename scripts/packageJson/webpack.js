@@ -13,7 +13,6 @@ module.exports = {
         "babel-preset-stage-0": "*",
         "css-loader": "*",
         "style-loader": "*",
-        "sass-loader": "*",
         "html-webpack-plugin": "*",
         "webpack": "*",
         "webpack-dev-server": "*",

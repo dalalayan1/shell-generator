@@ -7,16 +7,21 @@ const writeFile = fs.writeFileSync;
 
 const fsUtils = require('./fs-utils.js');
 
-var updatePackageJson = function updatePackageJson(module){
-    var newModule = {
-      [module] : "*"
-    }
+var updatePackageJson = function updatePackageJson(modules){
+    var newModule;
     var packageJson = path.join(process.cwd(),'package.json');
     var packageJsonContents = require(packageJson);
     var pkgDevDependencies = packageJsonContents["devDependencies"];
-    pkgDevDependencies = Object.assign({},pkgDevDependencies,newModule);
-    packageJsonContents["devDependencies"] = pkgDevDependencies;
-    fsUtils.writeToFile(packageJson,JSON.stringify(packageJsonContents,0,2));
+
+    modules.forEach(function(module,index){
+      newModule = {
+        [module] : "*"
+      }
+      pkgDevDependencies = Object.assign({},pkgDevDependencies,newModule);
+      packageJsonContents["devDependencies"] = pkgDevDependencies;
+      fsUtils.writeToFile(packageJson,JSON.stringify(packageJsonContents,0,2));
+    });
+    
 }
 
 var createPkgJson = function createPkgJson(pkgjson,pkgFile,webpackPkg){
