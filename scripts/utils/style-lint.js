@@ -8,7 +8,8 @@ var insertStyleLintForGulp = function insertStyleLintForGulp(file){
     contents = fsUtils.readTheFile(file).split('gulp.task("default",[');
 
     insertTask = 
-    `var gulpStylelint = require('gulp-stylelint');
+    `var gulp = require('gulp');
+    var gulpStylelint = require('gulp-stylelint');
 
     gulp.task('css-lint', function () {
         return gulp.src(['src/styles/*.less','src/styles/*.scss'])
