@@ -52,12 +52,15 @@ function generateProject(params){
   if(params.devserver){
     utils.addDevserver();
   }
+  
+}
 
 function clearme(){
   clearInterval(myVar);
 }
 
 function init(){
+
   var answers = prompts.getPrompts();
      myVar = setInterval(function(){      
           if(answers.done){
@@ -66,7 +69,6 @@ function init(){
           } 
   }, 500);
 
-    
 }
 
 init();
