@@ -22,26 +22,29 @@ var preloaderForGulp = function preloaderForGulp(file,option){
 
     fsUtils.writeToFile(file,finalWebpack);
 
-    utils.updatePackageJson("gulp-"+option);
+    utils.updatePackageJson(["gulp-"+option]);
 }
 
-var preloaderForWebpack = function preloaderForWebpack(file,option,regex){
+var preloaderForWebpack = function preloaderForWebpack(files,option,regex){
 
-    var contents,insertPreloader,finalWebpack;
+    files.forEach(function(file,index){
 
-    contents = fsUtils.readTheFile(file).split('loaders: [');
+        var contents,insertPreloader,finalWebpack;
 
-    insertPreloader = 
-          `{
+        contents = fsUtils.readTheFile(file).split('loaders: [');
+
+        insertPreloader = 
+            `{
                 test: `+regex+`,
                 loader: 'style-loader!css-loader!`+option+`-loader'
-            },`+contents[1];
+             },`+contents[1];
 
-    finalWebpack = contents[0] + 'loaders: [\n\t\t\t' +insertPreloader;
+        finalWebpack = contents[0] + 'loaders: [\n\t\t\t' +insertPreloader;
 
-    fsUtils.writeToFile(file,finalWebpack);
+        fsUtils.writeToFile(file,finalWebpack);
+    });
 
-    utils.updatePackageJson(option+"-loader");
+    utils.updatePackageJson([option+"-loader"]);
 }
 
 module.exports = {

@@ -9,9 +9,9 @@ var addDevserver = function addDevserver(){
 
 var createPkgJson = function createPkgJson(pkgjson,pkgFile,webpackPkg){
     fsUtils.writeToFile(pkgjson,JSON.stringify({
-    "name": "shell-gen",
+    "name": "my-app",
     "version": "1.0.0",
-    "description": "",
+    "description": "This is the generated app",
     "main": "index.js",
     "scripts": {
       "test": "echo \"Error: no test specified\" && exit 1"

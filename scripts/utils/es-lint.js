@@ -28,32 +28,35 @@ var insertEsLintForGulp = function insertEsLintForGulp(file){
     utils.updatePackageJson(["gulp-eslint"]);
 }
 
-var insertEsLintForWebpack = function insertEsLintForWebpack(file) {
+var insertEsLintForWebpack = function insertEsLintForWebpack(files) {
 
-    var contents,requires,configs,plugins,insertPlugins,finalWebpack;
+    files.forEach(function(file,index){
 
-    contents = fsUtils.readTheFile(file).split('module: {');
-    beforeModule = contents[0];
-    insertRule = contents[1];
-    insertRule = 
-    `rules: [
-                {
-                    enforce: "pre",
-                    test:  /.js$/,
-                    exclude: [/node_modules/,/\.scss$/,/\.less$/],
-                    loader: "jsxhint-loader"
-                },
-                {
-                    enforce: "pre",
-                    test: /\.js$/,
-                    exclude: [/node_modules/,/\.scss$/,/\.less$/],
-                    loader: "eslint-loader"
-                }
-            ],` + insertRule;
-    
-    finalWebpack = beforeModule + 'module: {\n\t\t' +insertRule;
-    
-    fsUtils.writeToFile(file,finalWebpack);
+        var contents,requires,configs,plugins,insertPlugins,finalWebpack;
+
+        contents = fsUtils.readTheFile(file).split('module: {');
+        beforeModule = contents[0];
+        insertRule = contents[1];
+        insertRule = 
+        `rules: [
+                    {
+                        enforce: "pre",
+                        test:  /.js$/,
+                        exclude: [/node_modules/,/\.scss$/,/\.less$/],
+                        loader: "jsxhint-loader"
+                    },
+                    {
+                        enforce: "pre",
+                        test: /\.js$/,
+                        exclude: [/node_modules/,/\.scss$/,/\.less$/],
+                        loader: "eslint-loader"
+                    }
+                ],` + insertRule;
+        
+        finalWebpack = beforeModule + 'module: {\n\t\t' +insertRule;
+        
+        fsUtils.writeToFile(file,finalWebpack);
+    });
 
     fsUtils.copyDirectory('./scripts/es-linting','./');
 

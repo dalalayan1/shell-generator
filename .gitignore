@@ -1,8 +1,11 @@
 /node_modules/
 /dist/
+/src/
+/index.html
+/.babelrc
+/.eslintrc
 /.stylelintrc
 /gulpfile.js
 /webpack.config.js
 /webpack.config.prod.js
 /server.js
-/read-me.js

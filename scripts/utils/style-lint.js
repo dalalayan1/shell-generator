@@ -32,26 +32,29 @@ var insertStyleLintForGulp = function insertStyleLintForGulp(file){
     utils.updatePackageJson(["gulp-stylelint"]);
 }
 
-var insertStyleLintForWebpack = function insertStyleLintForWebpack(file) {
+var insertStyleLintForWebpack = function insertStyleLintForWebpack(files) {
 
-    var contents,requires,configs,plugins,insertPlugins,finalWebpack;
+    files.forEach(function(file,index){
 
-    contents = fsUtils.readTheFile(file,'utf8').split('module.exports = ');
-    requires = contents[0];
-    requires = requires + 'var StylelintWebpackPlugin = require(\'stylelint-webpack-plugin\');\n\n';
-    configs = contents[1];
-    plugins = configs.split('plugins: [');
-    insertPlugins = plugins[1];
-    insertPlugins = `
-            new StylelintWebpackPlugin({
-                configFile: './.stylelintrc',
-                files: ['**/*.scss','**/*.less'],
-                failOnError: false
-            }),\n\t` + insertPlugins;
-    
-    finalWebpack = requires + 'module.exports = ' + plugins[0] + 'plugins: [' + insertPlugins;
-    
-    fsUtils.writeToFile(file,finalWebpack);
+        var contents,requires,configs,plugins,insertPlugins,finalWebpack;
+
+        contents = fsUtils.readTheFile(file,'utf8').split('module.exports = ');
+        requires = contents[0];
+        requires = requires + 'var StylelintWebpackPlugin = require(\'stylelint-webpack-plugin\');\n\n';
+        configs = contents[1];
+        plugins = configs.split('plugins: [');
+        insertPlugins = plugins[1];
+        insertPlugins = `
+                new StylelintWebpackPlugin({
+                    configFile: './.stylelintrc',
+                    files: ['**/*.scss','**/*.less'],
+                    failOnError: false
+                }),\n\t` + insertPlugins;
+        
+        finalWebpack = requires + 'module.exports = ' + plugins[0] + 'plugins: [' + insertPlugins;
+        
+        fsUtils.writeToFile(file,finalWebpack);
+    });
 
     fsUtils.copyDirectory('./scripts/style-linting','./');
 

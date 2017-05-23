@@ -16,40 +16,42 @@ const cssPreloaders = require('./utils/css-preloaders.js');
 
 //import contents of the different files to write
 const pkgjson = path.join(process.cwd(),'package.json');
-const webpackPkg = require('./packageJson/webpack.js');
-const reactPkg = require('./packageJson/react.js');
-const reactReduxPkg = require('./packageJson/react-redux.js');
 
-function initiateGenerator(params){
-  console.log('params ',params);
+function generateProject(params){
+  
+  var frameworkDeps,bundlerDeps;
 
-  var frameworkDeps,builderDeps,createSkeleton;
-
-  builderDeps = (params.gulp)?require('./packageJson/gulp.js'):require('./packageJson/webpack.js');
+  bundlerDeps = (params.gulp)?require('./packageJson/gulp.js'):require('./packageJson/webpack.js');
 
   frameworkDeps = (params.react)?require('./packageJson/react.js'):require('./packageJson/react-redux.js');
 
-  createSkeleton = (params.react)?'./scripts/skeleton/pure-react':'./scripts/skeleton/react-redux';
+  (params.gulp)?fsUtils.copyDirectory('./scripts/gulp','./'):fsUtils.copyDirectory('./scripts/webpack','./');
+
+  (params.react)?fsUtils.copyDirectory('./scripts/skeleton/pure-react','./'):fsUtils.copyDirectory('./scripts/skeleton/react-redux','./');
 
   if(exists(pkgjson)){
-      utils.createPkgJson(pkgjson,frameworkDeps,builderDeps);
+      utils.createPkgJson(pkgjson,frameworkDeps,bundlerDeps);
     }
 
-    //fsUtils.copyDirectory(createSkeleton,'./');
+  if(params.less){
+    (params.gulp)?cssPreloaders.preloaderForGulp('./gulpfile.js','less'):cssPreloaders.preloaderForWebpack(['./webpack.config.js','./webpack.config.prod.js'],'less',/\.less$/);
+  }
 
-    //fsUtils.copyDirectory('./scripts/gulp','./');
-    //  esLints.insertEsLintForGulp('./gulpfile.js');
-    // utils.createFile(createGulpfile,gulpFile);
-   // styleLints.insertStyleLintForGulp('./gulpfile.js')
-   //cssPreloaders.preloaderForGulp('./gulpfile.js','less');
+  if(params.sass){
+    (params.gulp)?cssPreloaders.preloaderForGulp('./gulpfile.js','sass'):cssPreloaders.preloaderForWebpack(['./webpack.config.js','./webpack.config.prod.js'],'sass',/\.scss$/);
+  }
 
-    // fsUtils.copyDirectory('./scripts/skeleton/pure-react','./');
-   
-    // fsUtils.copyDirectory('./scripts/webpack','./');
-    // cssPreloaders.preloaderForWebpack('./webpack.config.js','less',/\.less$/);
-    // esLints.insertEsLintForWebpack('./webpack.config.js');
-    // styleLints.insertStyleLintForWebpack('./webpack.config.js');
-}
+  if(params.eslint){
+    (params.gulp)?esLints.insertEsLintForGulp('./gulpfile.js'):esLints.insertEsLintForWebpack(['./webpack.config.js','./webpack.config.prod.js']);
+  }
+
+  if(params.stylelint){
+    (params.gulp)?styleLints.insertStyleLintForGulp('./gulpfile.js'):styleLints.insertStyleLintForWebpack(['./webpack.config.js','./webpack.config.prod.js']);
+  }
+
+  if(params.devserver){
+    utils.addDevserver();
+  }
 
 function clearme(){
   clearInterval(myVar);
@@ -60,8 +62,7 @@ function init(){
      myVar = setInterval(function(){      
           if(answers.done){
             clearme();
-            //console.log('prompts ',answers);
-            initiateGenerator(answers);
+            generateProject(answers);
           } 
   }, 500);
 
