@@ -11,8 +11,5 @@ module.exports = {
     "react": "*",
     "react-dom": "*"
   },
-  devDependencies: {
-    "express": "*",
-    "open": "*"
-  }
+  devDependencies: {}
 }

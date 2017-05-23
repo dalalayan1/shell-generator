@@ -27,7 +27,7 @@ var insertStyleLintForGulp = function insertStyleLintForGulp(file){
 
     fsUtils.writeToFile(file,finalGulp);
 
-     fsUtils.copyDirectory('./scripts/style-linting','./');
+    fsUtils.copyDirectory('./scripts/style-linting','./');
 
     utils.updatePackageJson(["gulp-stylelint"]);
 }
@@ -53,9 +53,9 @@ var insertStyleLintForWebpack = function insertStyleLintForWebpack(file) {
     
     fsUtils.writeToFile(file,finalWebpack);
 
-    utils.updatePackageJson(["stylelint-bare-webpack-plugin","stylelint"]);
-
     fsUtils.copyDirectory('./scripts/style-linting','./');
+
+    utils.updatePackageJson(["stylelint-webpack-plugin","stylelint"]);
 }
 
 

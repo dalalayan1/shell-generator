@@ -1,27 +1,10 @@
-const copyDir = require('copy-dir').sync;
 const path = require('path');
-const fs = require('fs');
-const exists = fs.existsSync;
-const readFile = fs.readFileSync;
-const writeFile = fs.writeFileSync;
 
 const fsUtils = require('./fs-utils.js');
 
-var updatePackageJson = function updatePackageJson(modules){
-    var newModule;
-    var packageJson = path.join(process.cwd(),'package.json');
-    var packageJsonContents = require(packageJson);
-    var pkgDevDependencies = packageJsonContents["devDependencies"];
-
-    modules.forEach(function(module,index){
-      newModule = {
-        [module] : "*"
-      }
-      pkgDevDependencies = Object.assign({},pkgDevDependencies,newModule);
-      packageJsonContents["devDependencies"] = pkgDevDependencies;
-      fsUtils.writeToFile(packageJson,JSON.stringify(packageJsonContents,0,2));
-    });
-    
+var addDevserver = function addDevserver(){
+   fsUtils.copyDirectory('./scripts/devServer','./');
+   updatePackageJson(["express","open"]);
 }
 
 var createPkgJson = function createPkgJson(pkgjson,pkgFile,webpackPkg){
@@ -43,7 +26,25 @@ var createPkgJson = function createPkgJson(pkgjson,pkgFile,webpackPkg){
 
 }
 
+var updatePackageJson = function updatePackageJson(modules){
+    var newModule;
+    var packageJson = path.join(process.cwd(),'package.json');
+    var packageJsonContents = require(packageJson);
+    var pkgDevDependencies = packageJsonContents["devDependencies"];
+
+    modules.forEach(function(module,index){
+      newModule = {
+        [module] : "*"
+      }
+      pkgDevDependencies = Object.assign({},pkgDevDependencies,newModule);
+      packageJsonContents["devDependencies"] = pkgDevDependencies;
+      fsUtils.writeToFile(packageJson,JSON.stringify(packageJsonContents,0,2));
+    });
+    
+}
+
 module.exports = {
+    addDevserver,
     createPkgJson,
     updatePackageJson
 }

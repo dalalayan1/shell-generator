@@ -13,8 +13,5 @@ module.exports = {
     "redux-thunk": "*",
     "redux-logger": "*"
   },
-  devDependencies: {
-    "express": "*",
-    "open": "*"
-  }
+  devDependencies: {}
 }

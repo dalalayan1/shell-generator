@@ -55,6 +55,8 @@ var insertEsLintForWebpack = function insertEsLintForWebpack(file) {
     
     fsUtils.writeToFile(file,finalWebpack);
 
+    fsUtils.copyDirectory('./scripts/es-linting','./');
+
     utils.updatePackageJson(["jsxhint-loader","jshint","eslint-loader","eslint"]);
 
 }
