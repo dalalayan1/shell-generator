@@ -3,6 +3,11 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "scripts": {
+    "preGenerate": "npm i copy-dir",
+    "generate": "node scripts",
+    "postgenerate": "rm -rf scripts && rm -rf node_modules && npm i"
+  },
   "keywords": [],
   "author": "Ayan Dalal",
   "license": "ISC"
