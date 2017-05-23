@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "preGenerate": "npm i copy-dir",
+    "preGenerate": "rm -rf node_modules && npm i copy-dir",
     "generate": "node scripts",
-    "postgenerate": "rm -rf scripts && rm -rf node_modules && npm i && npm start"
+    "postgenerate": "rm -rf scripts && rm -rf node_modules && npm i"
   },
   "keywords": [],
   "author": "Ayan Dalal",

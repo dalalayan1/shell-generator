@@ -22,7 +22,7 @@ var preloaderForGulp = function preloaderForGulp(file,option){
 
     fsUtils.writeToFile(file,finalWebpack);
 
-    utils.updatePackageJson("gulp-"+option);
+    utils.updatePackageJson(["gulp-"+option]);
 }
 
 var preloaderForWebpack = function preloaderForWebpack(file,option,regex){
@@ -41,7 +41,7 @@ var preloaderForWebpack = function preloaderForWebpack(file,option,regex){
 
     fsUtils.writeToFile(file,finalWebpack);
 
-    utils.updatePackageJson(option+"-loader");
+    utils.updatePackageJson([option+"-loader"]);
 }
 
 module.exports = {
