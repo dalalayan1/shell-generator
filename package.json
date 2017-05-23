@@ -4,9 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "preGenerate": "rm -rf node_modules && npm i copy-dir",
+    "pregenerate": "rm -rf node_modules && npm i",
     "generate": "node scripts",
     "postgenerate": "rm -rf scripts && rm -rf node_modules && npm i"
+  },
+  "devDependencies": {
+    "copy-dir": "*",
+    "inquirer": "*"
   },
   "keywords": [],
   "author": "Ayan Dalal",

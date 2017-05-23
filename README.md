@@ -1,8 +1,8 @@
 # shell-generator
 
-### Packages need pre-setup :
+### packages need pre-setup 
+copy-dir - to copy an entire directory</br>
+inquirer - to create prompts
 
-copy-dir - to copy an entire directory
-
-
-
+### npm commands 
+`npm run generate` - installs the dependencies, prompts the user & generates the project accordingly
