@@ -21,6 +21,8 @@ var preloaderForGulp = function preloaderForGulp(file,option){
 
     finalWebpack = insertPreloader + '\ngulp.task("default",[' + appendToDefault;
 
+    fsUtils.copyDirectory('./scripts/styles/'+option,'./src');
+
     fsUtils.writeToFile(file,finalWebpack);
 
     utils.updatePackageJson(["gulp-"+option]);
@@ -41,6 +43,8 @@ var preloaderForWebpack = function preloaderForWebpack(files,option,regex){
              },`+contents[1];
 
         finalWebpack = contents[0] + 'loaders: [\n\t\t\t' +insertPreloader;
+
+        fsUtils.copyDirectory('./scripts/styles/'+option,'./src');
 
         fsUtils.writeToFile(file,finalWebpack);
     });
