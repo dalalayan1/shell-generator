@@ -1,6 +1,6 @@
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
-  template : __dirname + '/src/index_build.html',
+  template : __dirname + '/src/index.html',
   filename : 'index.html',
   inject : 'body'
 });

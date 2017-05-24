@@ -7,7 +7,7 @@ var gulp = require('gulp'),
         browserify('src/main.js')
             .transform('babelify')
             .bundle()
-            .pipe(source('main.js'))
+            .pipe(source('bundle.js'))
             .pipe(gulp.dest('dist/js'));
     });
 
