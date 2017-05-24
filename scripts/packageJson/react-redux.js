@@ -1,7 +1,6 @@
 module.exports = {
   scripts: {
-    "clean": "rimraf dist",
-    "server": "node server"
+    "clean": "rimraf dist"
   },
   dependencies: {
     "axios": "*",
