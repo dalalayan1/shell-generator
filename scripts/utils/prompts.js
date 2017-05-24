@@ -61,7 +61,7 @@ var obj={
       prompt(questions).then(function(answers){
       
       (answers.taskrunner=='gulp')?obj.gulp=true:obj.webpack=true;
-      (answers.framework=='react')?obj.react=true:obj.react_redux=true;
+      (answers.framework=='pure react')?obj.react=true:obj.react_redux=true;
       (answers.css_preloader=='less')?obj.less=true:obj.sass=true;
       (answers.eslint=='yes')?obj.eslint=true:obj.eslint=false;
       (answers.stylelint=='yes')?obj.stylelint=true:obj.stylelint=false;
