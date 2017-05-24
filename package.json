@@ -6,11 +6,12 @@
   "scripts": {
     "pregenerate": "npm i",
     "generate": "node scripts",
-    "postgenerate": "rm -rf scripts && rm -rf node_modules && npm i"
+    "postgenerate": "rimraf scripts && rimraf node_modules && npm i"
   },
   "devDependencies": {
     "copy-dir": "*",
-    "inquirer": "*"
+    "inquirer": "*",
+    "rimraf": "*"
   },
   "keywords": [],
   "author": "Ayan Dalal",

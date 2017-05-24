@@ -8,7 +8,8 @@ var insertEsLintForGulp = function insertEsLintForGulp(file){
     contents = fsUtils.readTheFile(file).split('gulp.task("default",[');
 
     insertTask = 
-    `var gulpEslint = require('gulp-eslint');
+    `var gulp = require('gulp');
+    var gulpEslint = require('gulp-eslint');
     
     gulp.task('es-lint', function () {
         return gulp.src('src/**/*.js') 

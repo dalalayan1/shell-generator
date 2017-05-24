@@ -8,9 +8,10 @@ var preloaderForGulp = function preloaderForGulp(file,option){
     contents = fsUtils.readTheFile(file).split('gulp.task("default",[');
 
     insertPreloader = 
-    `var `+option+` = require('gulp-`+option+`');
+    `var gulp = require('gulp');
+    var `+option+` = require('gulp-`+option+`');
     
-    gulp.task(`+option+`, function () {
+    gulp.task('`+option+`', function () {
         gulp.src('./src/styles/*.`+option+`')
             .pipe(`+option+`())
             .pipe(gulp.dest('dist/css'));
@@ -44,7 +45,7 @@ var preloaderForWebpack = function preloaderForWebpack(files,option,regex){
         fsUtils.writeToFile(file,finalWebpack);
     });
 
-    utils.updatePackageJson([option+"-loader"]);
+    utils.updatePackageJson([option+"-loader",option]);
 }
 
 module.exports = {
