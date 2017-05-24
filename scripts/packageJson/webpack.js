@@ -1,8 +1,9 @@
 module.exports = {
     scripts: {
         "start": "webpack-dev-server --content-base",
-        "build": "npm run build:webpack && npm run server",
+        "build": "npm run build:webpack",
         "build:webpack": "npm run clean && webpack --config webpack.config.prod.js",
+        "server": "node server"
     },
     devDependencies: {
         "babel-core": "*",

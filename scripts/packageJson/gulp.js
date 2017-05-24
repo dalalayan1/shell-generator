@@ -1,6 +1,8 @@
 module.exports = {
     scripts: {
-        "build": "npm run clean && gulp"
+        "start": "npm run build && npm run server",
+        "build": "npm run clean && gulp",
+        "server": "node server"
     },
     devDependencies: {
         "babel-preset-es2015": "*",
