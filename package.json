@@ -4,14 +4,14 @@
   "description": "gets prompts from the user, talks to CLI through Node and generates a project",
   "main": "index.js",
   "scripts": {
+    "preinstall": "npm i -g rimraf",
     "pregenerate": "npm i",
     "generate": "node scripts",
     "postgenerate": "rimraf scripts && rimraf node_modules && npm i"
   },
   "devDependencies": {
     "copy-dir": "*",
-    "inquirer": "*",
-    "rimraf": "*"
+    "inquirer": "*"
   },
   "keywords": [],
   "author": "Ayan Dalal",
