@@ -42,7 +42,13 @@ function generateProject(params){
   }
 
   if(params.eslint){
-    (params.gulp)?esLints.insertEsLintForGulp('./gulpfile.js'):esLints.insertEsLintForWebpack(['./webpack.config.js','./webpack.config.prod.js']);
+    
+    if(params.wantAirbnb){
+      (params.gulp)?esLints.insertEsLintForGulp('./gulpfile.js',true):esLints.insertEsLintForWebpack(['./webpack.config.js','./webpack.config.prod.js'],true);
+    }
+    else {
+      (params.gulp)?esLints.insertEsLintForGulp('./gulpfile.js',false):esLints.insertEsLintForWebpack(['./webpack.config.js','./webpack.config.prod.js'],false);
+    }
   }
 
   if(params.stylelint){

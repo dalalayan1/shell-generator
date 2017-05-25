@@ -1,7 +1,23 @@
 const fsUtils = require('./fs-utils.js');
 const utils = require('./utils.js');
 
-var insertEsLintForGulp = function insertEsLintForGulp(file){
+var injectAirbnb = function injectAirbnb(file){
+
+    var contents,insertAirbnb,finalEslintrc;
+
+    contents = fsUtils.readTheFile(file).split('{');
+
+    insertAirbnb = 
+    `"extends": "airbnb",\n` + contents[1];
+
+    finalEslintrc = contents[0] + '{\n' + insertAirbnb;
+
+    fsUtils.writeToFile(file,finalEslintrc);
+
+    utils.updatePackageJson(["eslint-config-airbnb","eslint-plugin-jsx-a11y","eslint-plugin-react"]);
+}
+
+var insertEsLintForGulp = function insertEsLintForGulp(file,wantAirbnb){
 
     var contents,insertTask,appendToDefault,finalGulp;
 
@@ -24,12 +40,16 @@ var insertEsLintForGulp = function insertEsLintForGulp(file){
 
     fsUtils.writeToFile(file,finalGulp);
 
+     if(wantAirbnb){
+        injectAirbnb('./.eslintrc');
+     } 
+
     fsUtils.copyDirectory('./scripts/es-linting','./');
 
     utils.updatePackageJson(["gulp-eslint"]);
 }
 
-var insertEsLintForWebpack = function insertEsLintForWebpack(files) {
+var insertEsLintForWebpack = function insertEsLintForWebpack(files,wantAirbnb) {
 
     files.forEach(function(file,index){
 
@@ -58,6 +78,10 @@ var insertEsLintForWebpack = function insertEsLintForWebpack(files) {
         
         fsUtils.writeToFile(file,finalWebpack);
     });
+
+     if(wantAirbnb){
+        injectAirbnb('./.eslintrc');
+    }
 
     fsUtils.copyDirectory('./scripts/es-linting','./');
 

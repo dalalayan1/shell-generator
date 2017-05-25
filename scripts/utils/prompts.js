@@ -4,55 +4,56 @@ var questions=[{
     type: "list",
     name: "taskrunner",
     message: "Wich task-runner do you need?",
-    choices: [ "gulp", "webpack" ],
-    filter: function( val ) { return val.toLowerCase(); }
+    choices: [ "gulp", "webpack" ]
   },{
     type: "list",
     name: "framework",
     message: "Which framework do you need?",
-    choices: [ "pure react", "react with redux" ],
-    filter: function( val ) { return val.toLowerCase(); }
+    choices: [ "pure react", "react with redux" ]
   },
   {
     type: "list",
     name: "css_preloader",
     message: "Which css-preloader do you need?",
-    choices: [ "less", "sass" ],
-    filter: function( val ) { return val.toLowerCase(); }
+    choices: [ "less", "sass" ]
   },
   {
-    type: "list",
+    type: "confirm",
     name: "eslint",
-    message: "Do you need es-linting?",
-    choices: [ "No", "Yes" ],
-    filter: function( val ) { return val.toLowerCase(); }
+    message: "Do you need es-linting?"
+  },
+  { 
+      when: function (response) {
+       return response.eslint;
+    },
+    type: "confirm",
+    name: "wantAirbnb",
+    message: "\tOkay, do you need airbnb guide too?"
   },
   {
-    type: "list",
+    type: "confirm",
     name: "stylelint",
-    message: "Do you need style-linting?",
-    choices: [ "No", "Yes" ],
-    filter: function( val ) { return val.toLowerCase(); }
+    message: "Do you need style-linting?"
   },
   {
-    type: "list",
+    type: "confirm",
     name: "server",
-    message: "Do you need a dev-server?",
-    choices: [ "No", "Yes" ],
-    filter: function( val ) { return val.toLowerCase(); }
+    message: "Do you need a dev-server?"
   }];
-var obj={
-  done:false,
-  gulp:false,
-  webpack:false,
-  react:false,
-  react_redux:false,
-  less:false,
-  sass:false,
-  eslint:false,
-  stylelint:false,
-  devserver:false
-};
+
+  var obj={
+    done:false,
+    gulp:false,
+    webpack:false,
+    react:false,
+    react_redux:false,
+    less:false,
+    sass:false,
+    eslint:false,
+    wantAirbnb:false,
+    stylelint:false,
+    devserver:false
+  };
 
   var prompt = inquirer.createPromptModule();
 
@@ -63,9 +64,10 @@ var obj={
       (answers.taskrunner=='gulp')?obj.gulp=true:obj.webpack=true;
       (answers.framework=='pure react')?obj.react=true:obj.react_redux=true;
       (answers.css_preloader=='less')?obj.less=true:obj.sass=true;
-      (answers.eslint=='yes')?obj.eslint=true:obj.eslint=false;
-      (answers.stylelint=='yes')?obj.stylelint=true:obj.stylelint=false;
-      (answers.server=='yes')?obj.devserver=true:obj.devserver=false;
+      (answers.eslint)?obj.eslint=true:obj.eslint=false;
+      (answers.wantAirbnb)?obj.wantAirbnb=true:obj.wantAirbnb=false;
+      (answers.stylelint)?obj.stylelint=true:obj.stylelint=false;
+      (answers.server)?obj.devserver=true:obj.devserver=false;
         
       obj.done = true;
     });
