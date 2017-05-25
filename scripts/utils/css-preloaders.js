@@ -49,7 +49,12 @@ var preloaderForWebpack = function preloaderForWebpack(files,option,regex){
         fsUtils.writeToFile(file,finalWebpack);
     });
 
-    utils.updatePackageJson([option+"-loader",option]);
+    if(option=="sass"){
+        utils.updatePackageJson([option+"-loader",option,"node-"+sass]);
+    }
+    else{
+        utils.updatePackageJson([option+"-loader",option]);
+    }
 }
 
 module.exports = {
