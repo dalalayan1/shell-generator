@@ -19,13 +19,8 @@ var readTheFile = function readTheFile(source){
     return 'Error! file doesnt exist!';   
 }
 
-var writeToFile = function writeToFile(source,dest){
-    if(exists(source)){
-        writeFile(source,dest,'utf8');
-        return true;
-    }
-    return 'Error! file doesnt exist!';
-    
+var writeToFile = function writeToFile(source,contents){
+    writeFile(source,contents,'utf8');  
 }
 
 module.exports = {
