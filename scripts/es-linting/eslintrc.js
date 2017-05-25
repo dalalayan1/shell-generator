@@ -1,5 +1,5 @@
-{
-  "rules": {
+module.exports = {
+  rules: {
     "no-comma-dangle": 1,         // disallow trailing commas in object literals
     "no-cond-assign": 1,          // disallow assignment in conditional expressions
     "no-console": 1,              // disallow use of console (off by default in the node environment)
