@@ -14,9 +14,9 @@ module.exports = {
         "css-loader": "*",
         "style-loader": "*",
         "html-webpack-plugin": "*",
-        "webpack": "*",
+        "webpack": "^2.x.x",
         "webpack-dashboard": "*",
-        "webpack-dev-server": "*",
+        "webpack-dev-server": "^2.x.x",
         "webpack-hot-middleware": "*"
     }
 }

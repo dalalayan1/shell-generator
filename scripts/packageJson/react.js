@@ -3,8 +3,8 @@ module.exports = {
     "clean": "rimraf dist"
   },
   dependencies: {
-    "react": "*",
-    "react-dom": "*"
+    "react": "^15.x.x",
+    "react-dom": "^15.x.x"
   },
   devDependencies: {}
 }

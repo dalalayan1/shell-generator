@@ -9,7 +9,7 @@ module.exports = {
         "babel-preset-react": "*",
         "babelify": "*",
         "browserify": "*",
-        "gulp": "*",
+        "gulp": "^3.x.x",
         "vinyl-source-stream": "*"
     }
 }
