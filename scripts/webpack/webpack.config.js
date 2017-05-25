@@ -1,29 +1,11 @@
+var entry = require('./webpack-configs/entry.js')||[];
+var output = require('./webpack-configs/output.js')||{};
+var modules = require('./webpack-configs/module.js')||{};
+var devServer = require('./webpack-configs/dev-server.js')||{};
 
 module.exports = {
-	entry:[
-		'./src/main.js'
-		],
-	output: {
-		path: __dirname + '/dist/',
-		filename: 'bundle.js',
-        publicPath: '/'
-	},
-	devServer: {
-		inline: true,
-		contentBase:'./',
-		port:3001
-	},
+	entry:entry,
 	plugins: [],
-	module: {
-		loaders: [
-			{
-				test:/.jsx?$/,
-				exclude:/node_modules/,
-				loader:'babel-loader',
-				query:{
-					presets: ["es2015", "react", "stage-0"]
-				}
-			}
-		]
-	}
+	module: modules,
+	devServer: devServer
 }

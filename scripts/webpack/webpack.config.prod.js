@@ -5,26 +5,14 @@ var HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
   inject : 'body'
 });
 
+var entry = require('./webpack-configs/entry.js')||[];
+var output = require('./webpack-configs/output.js')||{};
+var modules = require('./webpack-configs/module.js')||{};
+
 module.exports = {
-	entry:[
-		'./src/main.js'
-		],
-	output: {
-		path: __dirname + '/dist',
-		filename: 'js/bundle.js'
-	},
-	module: {
-		loaders: [
-			{
-				test:/.jsx?$/,
-				exclude:/node_modules/,
-				loader:'babel-loader',
-				query:{
-					presets: ["es2015", "react", "stage-0"]
-				}
-			}
-		]
-	},
+	entry:entry,
+	output: output,
+	module: modules,
 	plugins: [
 		HtmlWebpackPluginConfig
 	]
