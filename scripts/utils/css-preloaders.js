@@ -30,19 +30,16 @@ var preloaderForGulp = function preloaderForGulp(file,option){
 
 var preloaderForWebpack = function preloaderForWebpack(file,option){
 
-        var contents,requirePreloader,insertPreloader,finalLoader;
+        var contents,requirePreloader,insertPreloader,finalModule;
 
-        contents = fsUtils.readTheFile(file).split('module.exports = [');
-
-        requirePreloader = 
-        `var cssPreLoader = require('./`+option+`-loader.js');\n` + contents[0];
+        contents = fsUtils.readTheFile(file).split('loaders: [');
 
         insertPreloader = 
-            `cssPreLoader,`+contents[1];
+            `loaders.`+option+`Loader,`+contents[1];
 
-        finalLoader = requirePreloader + 'module.exports = [' + insertPreloader;
+        finalModule = contents[0] + 'loaders: [' + insertPreloader;
 
-        fsUtils.writeToFile(file,finalLoader);
+        fsUtils.writeToFile(file,finalModule);
 
         fsUtils.copyDirectory('./scripts/styles/'+option,'./src');
 

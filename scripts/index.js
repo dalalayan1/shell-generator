@@ -34,11 +34,11 @@ function generateProject(params){
     }
 
   if(params.less){
-    (params.gulp)?cssPreloaders.preloaderForGulp('./gulpfile.js','less'):cssPreloaders.preloaderForWebpack('./webpack-configs/loaders/index.js','less');
+    (params.gulp)?cssPreloaders.preloaderForGulp('./gulpfile.js','less'):cssPreloaders.preloaderForWebpack('./webpack-configs/modules.js','less');
   }
 
   if(params.sass){
-    (params.gulp)?cssPreloaders.preloaderForGulp('./gulpfile.js','sass'):cssPreloaders.preloaderForWebpack('./webpack-configs/loaders/index.js','sass');
+    (params.gulp)?cssPreloaders.preloaderForGulp('./gulpfile.js','sass'):cssPreloaders.preloaderForWebpack('./webpack-configs/modules.js','sass');
   }
 
   if(params.eslint){
