@@ -35,7 +35,7 @@ var preloaderForWebpack = function preloaderForWebpack(file,option){
         contents = fsUtils.readTheFile(file).split('module.exports = [');
 
         requirePreloader = 
-        `var cssPreLoader = require('`+option+`-loader.js');\n` + contents[0];
+        `var cssPreLoader = require('./`+option+`-loader.js');\n` + contents[0];
 
         insertPreloader = 
             `cssPreLoader,`+contents[1];

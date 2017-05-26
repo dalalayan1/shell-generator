@@ -37,22 +37,14 @@ var insertStyleLintForWebpack = function insertStyleLintForWebpack(files) {
 
     files.forEach(function(file,index){
 
-        var contents,requires,configs,plugins,insertPlugins,finalWebpack;
+        var contents,insertStylelintPlugin,finalWebpack;
 
-        contents = fsUtils.readTheFile(file,'utf8').split('module.exports = ');
-        requires = contents[0];
-        requires = requires + 'var StylelintWebpackPlugin = require(\'stylelint-webpack-plugin\');\n\n';
-        configs = contents[1];
-        plugins = configs.split('plugins: [');
-        insertPlugins = plugins[1];
-        insertPlugins = `
-                new StylelintWebpackPlugin({
-                    configFile: './.stylelintrc',
-                    files: ['**/*.scss','**/*.less'],
-                    failOnError: false
-                }),\n\t` + insertPlugins;
-        
-        finalWebpack = requires + 'module.exports = ' + plugins[0] + 'plugins: [' + insertPlugins;
+        contents = fsUtils.readTheFile(file).split('plugins: [');
+
+        insertStylelintPlugin = 
+        `plugins.StylelintWebpackPlugin,` + contents[1];
+
+        finalWebpack = contents[0] + 'plugins: [' + insertStylelintPlugin;
         
         fsUtils.writeToFile(file,finalWebpack);
     });
