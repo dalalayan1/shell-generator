@@ -66,7 +66,7 @@ var insertEsLintForWebpack = function insertEsLintForWebpack(file,wantAirbnb) {
         `var rules = require('./rules-eslint.js')||[];\n` + contents[0];
         
         insertRules = 
-        `rules:rules,\n` + contents[1];
+        `rules:rules,` + contents[1];
         
         finalModule = beforeModule + 'module.exports = {\n\t\t' +insertRules;
         
