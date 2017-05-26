@@ -51,7 +51,7 @@ var insertStyleLintForWebpack = function insertStyleLintForWebpack(files) {
 
     fsUtils.copyDirectory('./scripts/style-linting','./');
 
-    utils.updatePackageJson(["stylelint-webpack-plugin","stylelint"]);
+    utils.updatePackageJson(["stylelint-webpack-plugin"]);
 }
 
 
