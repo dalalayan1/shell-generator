@@ -48,46 +48,35 @@ var insertEsLintForGulp = function insertEsLintForGulp(file,wantAirbnb){
     createEslintFile();
 
     if(wantAirbnb){
-        injectAirbnb('.eslintrc');
+        injectAirbnb();
      } 
 
     utils.updatePackageJson(["gulp-eslint"]);
 }
 
-var insertEsLintForWebpack = function insertEsLintForWebpack(files,wantAirbnb) {
+var insertEsLintForWebpack = function insertEsLintForWebpack(file,wantAirbnb) {
 
-    files.forEach(function(file,index){
+ 
 
-        var contents,requires,configs,plugins,insertPlugins,finalWebpack;
+        var contents,beforeModule,insertRules,finalModule;
 
-        contents = fsUtils.readTheFile(file).split('module: {');
-        beforeModule = contents[0];
-        insertRule = contents[1];
-        insertRule = 
-        `rules: [
-                    {
-                        enforce: "pre",
-                        test:  /.js$/,
-                        exclude: [/node_modules/,/\.scss$/,/\.less$/],
-                        loader: "jsxhint-loader"
-                    },
-                    {
-                        enforce: "pre",
-                        test: /\.js$/,
-                        exclude: [/node_modules/,/\.scss$/,/\.less$/],
-                        loader: "eslint-loader"
-                    }
-                ],` + insertRule;
+        contents = fsUtils.readTheFile(file).split('module.exports = {');
+
+        beforeModule = 
+        `var rules = require('./rules-eslint.js')||[];\n` + contents[0];
         
-        finalWebpack = beforeModule + 'module: {\n\t\t' +insertRule;
+        insertRules = 
+        `rules:rules,\n` + contents[1];
         
-        fsUtils.writeToFile(file,finalWebpack);
-    });
+        finalModule = beforeModule + 'module.exports = {\n\t\t' +insertRules;
+        
+        fsUtils.writeToFile(file,finalModule);
+  
 
     createEslintFile();
 
      if(wantAirbnb){
-        injectAirbnb('.eslintrc');
+        injectAirbnb();
     }
 
     utils.updatePackageJson(["jsxhint-loader","jshint","eslint-loader","eslint"]);

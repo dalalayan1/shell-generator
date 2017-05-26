@@ -34,20 +34,20 @@ function generateProject(params){
     }
 
   if(params.less){
-    (params.gulp)?cssPreloaders.preloaderForGulp('./gulpfile.js','less'):cssPreloaders.preloaderForWebpack(['./webpack.config.js','./webpack.config.prod.js'],'less',/\.less$/);
+    (params.gulp)?cssPreloaders.preloaderForGulp('./gulpfile.js','less'):cssPreloaders.preloaderForWebpack('./webpack-configs/loaders/index.js','less');
   }
 
   if(params.sass){
-    (params.gulp)?cssPreloaders.preloaderForGulp('./gulpfile.js','sass'):cssPreloaders.preloaderForWebpack(['./webpack.config.js','./webpack.config.prod.js'],'sass',/\.scss$/);
+    (params.gulp)?cssPreloaders.preloaderForGulp('./gulpfile.js','sass'):cssPreloaders.preloaderForWebpack('./webpack-configs/loaders/index.js','sass');
   }
 
   if(params.eslint){
     
     if(params.wantAirbnb){
-      (params.gulp)?esLints.insertEsLintForGulp('./gulpfile.js',true):esLints.insertEsLintForWebpack(['./webpack.config.js','./webpack.config.prod.js'],true);
+      (params.gulp)?esLints.insertEsLintForGulp('./gulpfile.js',true):esLints.insertEsLintForWebpack('./webpack-configs/module.js',true);
     }
     else {
-      (params.gulp)?esLints.insertEsLintForGulp('./gulpfile.js',false):esLints.insertEsLintForWebpack(['./webpack.config.js','./webpack.config.prod.js'],false);
+      (params.gulp)?esLints.insertEsLintForGulp('./gulpfile.js',false):esLints.insertEsLintForWebpack('./webpack-configs/module.js',false);
     }
   }
 

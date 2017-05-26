@@ -28,29 +28,26 @@ var preloaderForGulp = function preloaderForGulp(file,option){
     utils.updatePackageJson(["gulp-"+option]);
 }
 
-var preloaderForWebpack = function preloaderForWebpack(files,option,regex){
+var preloaderForWebpack = function preloaderForWebpack(file,option){
 
-    files.forEach(function(file,index){
+        var contents,requirePreloader,insertPreloader,finalLoader;
 
-        var contents,insertPreloader,finalWebpack;
+        contents = fsUtils.readTheFile(file).split('module.exports = [');
 
-        contents = fsUtils.readTheFile(file).split('loaders: [');
+        requirePreloader = 
+        `var cssPreLoader = require('`+option+`-loader.js');\n` + contents[0];
 
         insertPreloader = 
-            `{
-                test: `+regex+`,
-                loader: 'style-loader!css-loader!`+option+`-loader'
-             },`+contents[1];
+            `cssPreLoader,`+contents[1];
 
-        finalWebpack = contents[0] + 'loaders: [\n\t\t\t' +insertPreloader;
+        finalLoader = requirePreloader + 'module.exports = [' + insertPreloader;
+
+        fsUtils.writeToFile(file,finalLoader);
 
         fsUtils.copyDirectory('./scripts/styles/'+option,'./src');
 
-        fsUtils.writeToFile(file,finalWebpack);
-    });
-
     if(option=="sass"){
-        utils.updatePackageJson([option+"-loader",option,"node-"+sass]);
+        utils.updatePackageJson([option+"-loader",option,"node-"+option]);
     }
     else{
         utils.updatePackageJson([option+"-loader",option]);
