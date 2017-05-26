@@ -2,6 +2,7 @@
 gets prompts from the user, talks to CLI through Node and generates a project.
 
 ### packages needed 
+rimraf - to delete files/folders(to be installed globally)</br>
 copy-dir - to copy an entire directory</br>
 inquirer - to create prompts
 
