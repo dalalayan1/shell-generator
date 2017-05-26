@@ -1,12 +1,2 @@
 /node_modules/
 /dist/
-/src/
-/index.html
-/.babelrc
-/.eslintrc
-/.stylelintrc
-/gulpfile.js
-/webpack.config.js
-/webpack.config.prod.js
-/webpack-configs/
-/server.js
