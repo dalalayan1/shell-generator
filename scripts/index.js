@@ -72,10 +72,42 @@ function init(){
           if(answers.done){
             clearme();
             generateProject(answers);
+            installDeps();
           } 
   }, 500);
 
 }
+function installDeps() {
+  exec('node --version', function (err, stdout, stderr) {
+    const nodeVersion = stdout && parseFloat(stdout.substring(1));
+    if (nodeVersion < 5 || err) {
+      installDepsCallback(err || 'Unsupported node.js version, make sure you have the latest version installed.');
+    } else {
+      exec('yarn --version', function (err, stdout, stderr) {
+        if (parseFloat(stdout) < 0.15 || err || process.env.USE_YARN === 'false') {
+          process.stdout.write('yarn not found, normal npm i');
+          exec('npm install', addCheckMark.bind(null, installDepsCallback));
+        } else {
+          process.stdout.write('yarn installing');
+          exec('yarn install', addCheckMark.bind(null, installDepsCallback));
+        }
+      });
+    }
+  });
+}
+function addCheckMark(callback) {
+  process.stdout.write(' ✓');
+  if (callback) callback();
+}
+function installDepsCallback(error) {
+  process.stdout.write('\n\n');
+  if (error) {
+    process.stderr.write(error);
+    process.stdout.write('\n');
+    process.exit(1);
+  }
 
+  
+}
 init();
 
