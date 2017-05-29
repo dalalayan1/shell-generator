@@ -87,9 +87,12 @@ function init(){
             generateProject(answers);
             installDeps();
 
-            console.log(chalk.blue('\nVoila! Seems like your app is ready!! :)'));
+            console.log(chalk.cyan('\nVoila! Seems like your app is ready!! :)'));
 
-            
+            console.log(chalk.cyan('\nHold on! We are installing the dependencies...'));
+
+
+
           } 
   }, 500);
 
