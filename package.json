@@ -7,11 +7,15 @@
     "preinstall": "npm i -g rimraf",
     "pregenerate": "npm i",
     "generate": "node scripts",
-    "postgenerate": "rimraf scripts && rimraf node_modules && npm i"
+    "postgenerate": "rimraf scripts && rimraf node_modules && npm i",
+    "test": "mocha"
   },
   "devDependencies": {
+    "babel-register": "^6.24.1",
+    "chai": "^4.0.0",
     "copy-dir": "*",
-    "inquirer": "*"
+    "inquirer": "*",
+    "mocha": "^3.4.2"
   },
   "keywords": [],
   "author": "Ayan Dalal",
