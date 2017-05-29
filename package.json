@@ -4,10 +4,7 @@
   "description": "gets prompts from the user, talks to CLI through Node and generates a project",
   "main": "index.js",
   "scripts": {
-    "preinstall": "npm i -g rimraf",
-    "pregenerate": "npm i",
-    "generate": "node scripts",
-    "postgenerate": "rimraf scripts"
+    "generate": "node scripts"
   },
   "devDependencies": {
     "copy-dir": "*",

@@ -77,16 +77,29 @@ function generateProject(params){
 function clearme(){
   clearInterval(myVar);
 }
-
+function testMe(answers){
+  console.log(answers);
+  exec('git clone '+answers.repoUrl+' scripts/skeleton/custom', gitClone.bind(null, gitCloneCallBack));
+}
+function gitClone(){
+  if(arguments[1]){
+    console.log(chalk.red(arguments[3]));
+  }else{
+    console.log(chalk.green("Cloning your git repo"));
+  }
+}
+function gitCloneCallBack(){
+  console.log("ERROR",  arguments)
+}
 function init(){
 
   var answers = prompts.getPrompts();
      myVar = setInterval(function(){      
           if(answers.done){
             clearme();
-            generateProject(answers);
-            installDeps();
-
+            // generateProject(answers);
+            // installDeps();
+            testMe(answers)
             console.log(chalk.cyan('\nVoila! Seems like your app is ready!! :)'));
 
             console.log(chalk.cyan('\nHold on! We are installing the dependencies...'));
