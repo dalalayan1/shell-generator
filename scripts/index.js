@@ -107,9 +107,7 @@ function init(){
             generateProject(answers);
             installDeps();
 
-            console.log(chalk.cyan('\nVoila! Seems like your app is ready!! :)'));
-
-            console.log(chalk.cyan('\nHold on! We are installing the dependencies...'));
+            process.stdout.write(chalk.cyan('\nHold on! We are installing the dependencies...'));
 
 
 
@@ -131,27 +129,23 @@ function installDeps() {
       exec('yarn --version', function (err, stdout, stderr) {
         if (parseFloat(stdout) < 0.15 || err || process.env.USE_YARN === 'false') {
           process.stdout.write('yarn not found, normal npm i');
-          exec('npm install', addCheckMark.bind(null, installDepsCallback));
+          process.stdout.write(chalk.yellow('\nnpm installing...'));
+          exec('npm install', addCheckMark('npm'));
         } else {
           process.stdout.write(chalk.yellow('\nyarn installing...'));
-          exec('yarn install', addCheckMark.bind(null, installDepsCallback));
+          exec('yarn install', addCheckMark('yarn'));
         }
       });
     }
   });
 }
-function addCheckMark(callback) {
-  process.stdout.write(chalk.green('\nyarn installed ✓'));
-  if (callback) callback();
+
+
+function addCheckMark(option) {
+  process.stdout.write(chalk.green('\n'+option+' installed ✓'));
+  process.stdout.write(chalk.cyan('\nVoila! Seems like your app is ready! Happy coding! :)'));
 }
-function installDepsCallback(error) {
-  process.stdout.write('\n\n');
-  if (error) {
-    process.stderr.write(error);
-    process.stdout.write('\n');
-    process.exit(1);
-  } 
-}
+
 
 //entry point
 init();
