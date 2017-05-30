@@ -15,7 +15,9 @@
     "chai": "^4.0.0",
     "copy-dir": "*",
     "inquirer": "*",
-    "mocha": "^3.4.2"
+    "mocha": "^3.4.2",
+    "mocha-clean": "^1.0.0",
+    "request": "^2.81.0"
   },
   "keywords": [],
   "author": "Ayan Dalal",
