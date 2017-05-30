@@ -1,5 +1,7 @@
 var inquirer = require("inquirer");
 console.log("Select the appropriate answers");
+
+//array of questions to be prompted to the user
 var questions=[{
     type: "list",
     name: "taskrunner",
@@ -41,6 +43,7 @@ var questions=[{
     message: "Do you need a dev-server?"
   }];
 
+//object initialization
   var obj={
     done:false,
     gulp:false,
@@ -57,6 +60,11 @@ var questions=[{
 
   var prompt = inquirer.createPromptModule();
 
+/**
+  * Gets the answers to the prompts.
+  * Modifies the obj as per requirements.
+  * @return {object} answers
+  */
   var getPrompts = function getPrompts(){
 
       prompt(questions).then(function(answers){
