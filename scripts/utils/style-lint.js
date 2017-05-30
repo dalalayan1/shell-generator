@@ -1,6 +1,10 @@
 const fsUtils = require('./fs-utils.js');
 const utils = require('./utils.js');
 
+/**
+   * Configures stylelint for gulp.
+   * @param {string} file path 
+   */
 var insertStyleLintForGulp = function insertStyleLintForGulp(file){
 
     var contents,insertTask,appendToDefault,finalGulp;
@@ -33,6 +37,10 @@ var insertStyleLintForGulp = function insertStyleLintForGulp(file){
     utils.updatePackageJson(["gulp-stylelint"]);
 }
 
+/**
+   * Configures stylelint for webpack.
+   * @param {array} file paths 
+   */
 var insertStyleLintForWebpack = function insertStyleLintForWebpack(files) {
 
     files.forEach(function(file,index){
