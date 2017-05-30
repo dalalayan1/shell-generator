@@ -1,6 +1,11 @@
 const fsUtils = require('./fs-utils.js');
 const utils = require('./utils.js');
 
+/**
+   * Configures css-preloader for gulp.
+   * @param {string} file path
+   * @param {string} preloader
+   */
 var preloaderForGulp = function preloaderForGulp(file,option){
 
     var contents,insertPreloader,appendToDefault,finalWebpack;
@@ -28,6 +33,11 @@ var preloaderForGulp = function preloaderForGulp(file,option){
     utils.updatePackageJson(["gulp-"+option]);
 }
 
+/**
+   * Configures css-preloader for webpack.
+   * @param {string} file path
+   * @param {string} preloader
+   */
 var preloaderForWebpack = function preloaderForWebpack(file,option){
 
         var contents,requirePreloader,insertPreloader,finalModule;
