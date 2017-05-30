@@ -2,6 +2,9 @@ const fsUtils = require('./fs-utils.js');
 const utils = require('./utils.js');
 const path = require('path');
 
+/**
+   * Creates .eslintrc file.
+   */
 var createEslintFile = function createEslintFile(){
 
     var contents = require('../es-linting/eslintrc.js');
@@ -9,6 +12,9 @@ var createEslintFile = function createEslintFile(){
     fsUtils.createFile('./.eslintrc',JSON.stringify(contents,null,2));
 }
 
+/**
+   * Configures Airbnb plugin for eslint.
+   */
 var injectAirbnb = function injectAirbnb(){
   
     var eslintFile = path.join(process.cwd(),'.eslintrc');
@@ -21,6 +27,11 @@ var injectAirbnb = function injectAirbnb(){
     utils.updatePackageJson(["eslint-config-airbnb","eslint-plugin-jsx-a11y","eslint-plugin-react"]);
 }
 
+/**
+   * Configures eslint for gulp.
+   * @param {string} file path
+   * @param {boolean} 
+   */
 var insertEsLintForGulp = function insertEsLintForGulp(file,wantAirbnb){
 
     var contents,insertTask,appendToDefault,finalGulp;
@@ -54,6 +65,12 @@ var insertEsLintForGulp = function insertEsLintForGulp(file,wantAirbnb){
     utils.updatePackageJson(["gulp-eslint"]);
 }
 
+
+/**
+   * Configures eslint for webpack.
+   * @param {string} file path
+   * @param {boolean} 
+   */
 var insertEsLintForWebpack = function insertEsLintForWebpack(file,wantAirbnb) {
 
  

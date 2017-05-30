@@ -2,12 +2,21 @@ const path = require('path');
 
 const fsUtils = require('./fs-utils.js');
 
+/**
+  * Adds an express server for development.
+  */
 var addDevserver = function addDevserver(){
    fsUtils.copyDirectory('./scripts/devServer','./');
    updatePackageJson(["express","open"]);
 }
 
-var createPkgJson = function createPkgJson(pkgjson,pkgFile,webpackPkg){
+/**
+  * Creates the package.json
+  * @param {string} filepath
+  * @param {object} framework dependencies
+  * @param {object} bundler dependencies
+  */
+var createPkgJson = function createPkgJson(pkgjson,framework,bundler){
     fsUtils.writeToFile(pkgjson,JSON.stringify({
     "name": "my-app",
     "version": "1.0.0",
@@ -19,13 +28,17 @@ var createPkgJson = function createPkgJson(pkgjson,pkgFile,webpackPkg){
     "keywords": [],
     "author": "",
     "license": "ISC",
-    "scripts": (true && Object.assign({},pkgFile.scripts,webpackPkg.scripts)),
-    "dependencies": pkgFile.dependencies,
-    "devDependencies": (true && Object.assign({},pkgFile.devDependencies,webpackPkg.devDependencies)),
+    "scripts": (true && Object.assign({},framework.scripts,bundler.scripts)),
+    "dependencies": framework.dependencies,
+    "devDependencies": (true && Object.assign({},framework.devDependencies,bundler.devDependencies)),
   },null,2));
 
 }
 
+/**
+  * Updates the package.json
+  * @param {array} devDependencies
+  */
 var updatePackageJson = function updatePackageJson(modules){
     var newModule;
     var packageJson = path.join(process.cwd(),'package.json');
