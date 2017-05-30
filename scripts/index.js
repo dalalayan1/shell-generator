@@ -13,7 +13,7 @@ const esLints = require('./utils/es-lint.js');
 const styleLints = require('./utils/style-lint.js');
 const fsUtils = require('./utils/fs-utils.js');
 const cssPreloaders = require('./utils/css-preloaders.js');
-
+var answers;
 //import contents of the different files to write
 const pkgjson = path.join(process.cwd(),'package.json');
 
@@ -27,7 +27,11 @@ function generateProject(params){
 
   (params.gulp)?fsUtils.copyDirectory('./scripts/gulp','./'):fsUtils.copyDirectory('./scripts/webpack','./');
 
-  (params.react)?fsUtils.copyDirectory('./scripts/skeleton/pure-react','./'):fsUtils.copyDirectory('./scripts/skeleton/react-redux','./');
+  (params.react)?fsUtils.copyDirectory('./scripts/skeleton/pure-react','./'):null;
+
+  (params.react_redux)?fsUtils.copyDirectory('./scripts/skeleton/react-redux','./'):null;
+
+  (params.repoUrl)?fsUtils.copyDirectory('./scripts/skeleton/custom','./'):null;
 
   if(exists(pkgjson)){
       process.stdout.write(chalk.yellow('\ncreating package.json...'));
@@ -78,27 +82,33 @@ function clearme(){
   clearInterval(myVar);
 }
 function testMe(answers){
-  console.log(answers);
-  exec('git clone '+answers.repoUrl+' scripts/skeleton/custom', gitClone.bind(null, gitCloneCallBack));
+  if(answers.repo){
+    exec('git clone '+answers.repoUrl+' scripts/skeleton/custom', gitClone.bind(null, gitCloneCallBack));
+  }else{
+    generateProject(answers);
+    installDeps();
+  }
 }
+
 function gitClone(){
   if(arguments[1]){
     console.log(chalk.red(arguments[3]));
   }else{
     console.log(chalk.green("Cloning your git repo"));
+    generateProject(answers);
+    installDeps();
   }
 }
 function gitCloneCallBack(){
   console.log("ERROR",  arguments)
 }
+
 function init(){
 
-  var answers = prompts.getPrompts();
+  answers = prompts.getPrompts();
      myVar = setInterval(function(){      
           if(answers.done){
             clearme();
-            // generateProject(answers);
-            // installDeps();
             testMe(answers)
             console.log(chalk.cyan('\nVoila! Seems like your app is ready!! :)'));
 
@@ -129,7 +139,7 @@ function installDeps() {
   });
 }
 function addCheckMark(callback) {
-  process.stdout.write(chalk.green('\nyarn installed ✓'));
+  process.stdout.write(chalk.green('\Dependencies installed ✓'));
   if (callback) callback();
 }
 function installDepsCallback(error) {
