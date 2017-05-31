@@ -21,6 +21,11 @@ const pkgjson = path.join(process.cwd(),'package.json');
   * @param {object} answers to prompts 
   */
 function generateProject(params){
+
+   if(params.repo){
+     doFusion(params.repoUrl);
+  }
+ 
   
   var frameworkDeps,bundlerDeps;
 
@@ -38,10 +43,6 @@ function generateProject(params){
   (params.react)?fsUtils.copyDirectory('./scripts/skeleton/pure-react','./'):fsUtils.copyDirectory('./scripts/skeleton/react-redux','./');
   process.stdout.write(chalk.green('\ncopied folder-skeleton ✓'));
 
-  if(params.repo){
-     doFusion(params.repoUrl);
-  }
- 
   //checks and overwrites package.json
   if(fs.existsSync(pkgjson)){
       process.stdout.write(chalk.yellow('\ncreating package.json...'));
