@@ -22,7 +22,7 @@ const pkgjson = path.join(process.cwd(),'package.json');
   */
 function generateProject(params){
 
-  process.stdout.write(chalk.cyan('\nBe patient! We are generating your project...'));
+  process.stdout.write(chalk.cyan('\nBe patient! We are generating your project...\n'));
   
   //checks for repoUrl to add files from other repo
    if(params.repo){
