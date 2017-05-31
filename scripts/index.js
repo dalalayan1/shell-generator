@@ -22,10 +22,12 @@ const pkgjson = path.join(process.cwd(),'package.json');
   */
 function generateProject(params){
 
+  process.stdout.write(chalk.cyan('\nBe patient! We are generating your project...'));
+  
+  //checks for repoUrl to add files from other repo
    if(params.repo){
      doFusion(params.repoUrl);
   }
- 
   
   var frameworkDeps,bundlerDeps;
 
@@ -95,8 +97,12 @@ function generateProject(params){
   
 }
 
+/**
+  * Does git subtree to inject files from extrenal repo.
+  * @param {string} repo url
+  */
 function doFusion(url){
-  process.stdout.write(chalk.yellow('\nadding files from external repo...'));
+  process.stdout.write(chalk.yellow('\nadding files from external repo...\n'));
   execSync(`git subtree add --prefix=src/fusion ${url} master --squash`);
   process.stdout.write(chalk.green('\nfiles from external repo added to src/fusion ✓'));
 }
