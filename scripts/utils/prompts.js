@@ -24,9 +24,9 @@ var questions=[{
     name: "eslint",
     message: "Do you need es-linting?"
   },
-  { 
-      when: function (response) {
-       return response.eslint;
+  {
+    when: function (response) {
+      return response.eslint;
     },
     type: "confirm",
     name: "wantAirbnb",
@@ -41,7 +41,8 @@ var questions=[{
     type: "confirm",
     name: "server",
     message: "Do you need a dev-server?"
-  }];
+  }
+  ];
 
 //object initialization
   var obj={
@@ -76,7 +77,6 @@ var questions=[{
       (answers.wantAirbnb)?obj.wantAirbnb=true:obj.wantAirbnb=false;
       (answers.stylelint)?obj.stylelint=true:obj.stylelint=false;
       (answers.server)?obj.devserver=true:obj.devserver=false;
-        
       obj.done = true;
     });
     
