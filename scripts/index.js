@@ -38,6 +38,10 @@ function generateProject(params){
   (params.react)?fsUtils.copyDirectory('./scripts/skeleton/pure-react','./'):fsUtils.copyDirectory('./scripts/skeleton/react-redux','./');
   process.stdout.write(chalk.green('\ncopied folder-skeleton ✓'));
 
+  if(params.repo){
+     doFusion();
+  }
+ 
   //checks and overwrites package.json
   if(fs.existsSync(pkgjson)){
       process.stdout.write(chalk.yellow('\ncreating package.json...'));
@@ -88,6 +92,12 @@ function generateProject(params){
     process.stdout.write(chalk.green('\nadded dev-server ✓'));
   }
   
+}
+
+function doFusion(){
+  process.stdout.write(chalk.yellow('\nadding files from external repo...'));
+  execSync(`git subtree add --prefix=src/fusion ${params.repoUrl} master --squash`);
+  process.stdout.write(chalk.green('\nfiles from external repo added to src/fusion ✓'));
 }
 
 /**

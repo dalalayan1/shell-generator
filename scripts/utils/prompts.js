@@ -41,6 +41,19 @@ var questions=[{
     type: "confirm",
     name: "server",
     message: "Do you need a dev-server?"
+  },
+  {
+    type: "confirm",
+    name: "repo",
+    message: "Do you have existing git repo?"
+  },
+  {
+    when: function (response) {
+      return response.repo;
+    },
+    type: "default",
+    name: "repoUrl",
+    message: "Your repo url: "
   }
   ];
 
@@ -56,7 +69,9 @@ var questions=[{
     eslint:false,
     wantAirbnb:false,
     stylelint:false,
-    devserver:false
+    devserver:false,
+    repo:false,
+    repoUrl:false
   };
 
   var prompt = inquirer.createPromptModule();
@@ -77,6 +92,7 @@ var questions=[{
       (answers.wantAirbnb)?obj.wantAirbnb=true:obj.wantAirbnb=false;
       (answers.stylelint)?obj.stylelint=true:obj.stylelint=false;
       (answers.server)?obj.devserver=true:obj.devserver=false;
+      obj.repoUrl = answers.repo ? answers.repoUrl : false;
       obj.done = true;
     });
     
