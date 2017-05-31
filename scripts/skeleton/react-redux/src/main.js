@@ -1,7 +1,6 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
-import { Router, Route, Link, browserHistory,IndexRoute} from 'react-router';
 
 import configureStore from './store/configureStore';
 
