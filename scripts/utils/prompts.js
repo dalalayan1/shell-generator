@@ -53,7 +53,7 @@ var questions=[{
     },
     type: "default",
     name: "repoUrl",
-    message: "Your repo url: "
+    message: "\tOkay, your repo url: "
   }
   ];
 
