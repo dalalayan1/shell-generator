@@ -6,8 +6,7 @@
   "scripts": {
     "preinstall": "npm i -g rimraf",
     "pregenerate": "npm i",
-    "generate": "node scripts",
-    "postgenerate": "rimraf scripts"
+    "generate": "node scripts"
   },
   "devDependencies": {
     "copy-dir": "*",

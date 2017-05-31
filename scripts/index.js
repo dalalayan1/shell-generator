@@ -1,4 +1,5 @@
 const exec = require('child_process').exec;
+const execSync = require('child_process').execSync;
 const path = require('path');
 const fs = require('fs');
 const chalk = require('chalk');
@@ -32,8 +33,10 @@ function generateProject(params){
   //checks for package bundler
   (params.gulp)?fsUtils.copyDirectory('./scripts/gulp','./'):fsUtils.copyDirectory('./scripts/webpack','./');
 
+  process.stdout.write(chalk.yellow('\ncopying folder-skeleton...'));
   //checks for framework
   (params.react)?fsUtils.copyDirectory('./scripts/skeleton/pure-react','./'):fsUtils.copyDirectory('./scripts/skeleton/react-redux','./');
+  process.stdout.write(chalk.green('\ncopied folder-skeleton ✓'));
 
   //checks and overwrites package.json
   if(fs.existsSync(pkgjson)){
@@ -61,7 +64,7 @@ function generateProject(params){
     process.stdout.write(chalk.yellow('\nconfiguring eslint...'));
     //checks for Airbnb
     if(params.wantAirbnb){
-      process.stdout.write(chalk.yellow('\injecting Airbnb plugin...'));
+      process.stdout.write(chalk.yellow('\ninjecting Airbnb plugin...'));
       (params.gulp)?esLints.insertEsLintForGulp('./gulpfile.js',true):esLints.insertEsLintForWebpack('./webpack-configs/module.js',true);
       process.stdout.write(chalk.green('\ninjected Airbnb plugin ✓'));
     }
@@ -125,8 +128,10 @@ function installDeps() {
   * @param {function} callback function to throw error
   */
 function addCheckMark(callback) {
-  process.stdout.write(chalk.green('\nDependencies installed ✓'));
-  process.stdout.write(chalk.cyan('\nVoila! Seems like your project is ready! Happy coding :)'));
+  process.stdout.write(chalk.green('\ndependencies installed ✓'));
+
+  doCleanUp();
+
   if (callback) callback();
 }
 
@@ -141,6 +146,17 @@ function installDepsCallback(error) {
     process.stdout.write('\n');
     process.exit(1);
   } 
+}
+
+/**
+  * Cleans up for unnecessary files/folders.
+  */
+function doCleanUp(){
+  process.stdout.write(chalk.yellow('\ndoing clean up...'));
+  execSync('rimraf scripts');
+  process.stdout.write(chalk.green('\nclean up done ✓'));
+
+  process.stdout.write(chalk.cyan('\nVoila! Seems like your project is ready! Happy coding :)'));
 }
 
  /**
