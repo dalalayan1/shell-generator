@@ -92,6 +92,7 @@ var questions=[{
       (answers.wantAirbnb)?obj.wantAirbnb=true:obj.wantAirbnb=false;
       (answers.stylelint)?obj.stylelint=true:obj.stylelint=false;
       (answers.server)?obj.devserver=true:obj.devserver=false;
+      (answers.repo)?obj.repo=true:obj.repo=false;
       obj.repoUrl = answers.repo ? answers.repoUrl : false;
       obj.done = true;
     });

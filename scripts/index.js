@@ -39,7 +39,7 @@ function generateProject(params){
   process.stdout.write(chalk.green('\ncopied folder-skeleton ✓'));
 
   if(params.repo){
-     doFusion();
+     doFusion(params.repoUrl);
   }
  
   //checks and overwrites package.json
@@ -94,9 +94,9 @@ function generateProject(params){
   
 }
 
-function doFusion(){
+function doFusion(url){
   process.stdout.write(chalk.yellow('\nadding files from external repo...'));
-  execSync(`git subtree add --prefix=src/fusion ${params.repoUrl} master --squash`);
+  execSync(`git subtree add --prefix=src/fusion ${url} master --squash`);
   process.stdout.write(chalk.green('\nfiles from external repo added to src/fusion ✓'));
 }
 
