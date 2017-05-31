@@ -95,27 +95,6 @@ function clearme(){
   clearInterval(myVar);
 }
 
- /**
-  * Entry point when the script is run.
-  */
-function init(){
-
-  var answers = prompts.getPrompts();
-     myVar = setInterval(function(){      
-          if(answers.done){
-            clearme();
-            generateProject(answers);
-            installDeps();
-
-            process.stdout.write(chalk.cyan('\nHold on! We are installing the dependencies...'));
-
-
-
-          } 
-  }, 500);
-
-}
-
 /**
   * Checks for presence of yarn/npm 
   * and installs the dependencies.
@@ -140,11 +119,21 @@ function installDeps() {
   });
 }
 
-
+/**
+  * Callback function which notifies a user 
+  * when the dependencies are installed. 
+  * @param {function} callback function to throw error
+  */
 function addCheckMark(callback) {
-  process.stdout.write(chalk.green('\Dependencies installed ✓'));
+  process.stdout.write(chalk.green('\nDependencies installed ✓'));
+  process.stdout.write(chalk.cyan('\nVoila! Seems like your project is ready! Happy coding :)'));
   if (callback) callback();
 }
+
+/**
+  * Callback function which gets called on error. 
+  * @param {string} error
+  */
 function installDepsCallback(error) {
   process.stdout.write('\n\n');
   if (error) {
@@ -152,6 +141,25 @@ function installDepsCallback(error) {
     process.stdout.write('\n');
     process.exit(1);
   } 
+}
+
+ /**
+  * Entry point when the script is run.
+  */
+function init(){
+
+  var answers = prompts.getPrompts();
+     myVar = setInterval(function(){      
+          if(answers.done){
+            clearme();
+            generateProject(answers);
+            installDeps();
+
+            process.stdout.write(chalk.cyan('\nHold on! We are installing the dependencies...'));
+
+          } 
+  }, 500);
+
 }
 
 
