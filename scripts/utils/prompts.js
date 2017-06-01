@@ -53,7 +53,7 @@ var questions=[{
     },
     type: "default",
     name: "repoUrl",
-    message: "Your repo url: "
+    message: "\tOkay, your repo url: "
   }
   ];
 
@@ -88,11 +88,11 @@ var questions=[{
       (answers.taskrunner=='gulp')?obj.gulp=true:obj.webpack=true;
       (answers.framework=='pure react')?obj.react=true:obj.react_redux=true;
       (answers.css_preloader=='less')?obj.less=true:obj.sass=true;
-      (answers.eslint)?obj.eslint=true:obj.eslint=false;
-      (answers.wantAirbnb)?obj.wantAirbnb=true:obj.wantAirbnb=false;
-      (answers.stylelint)?obj.stylelint=true:obj.stylelint=false;
-      (answers.server)?obj.devserver=true:obj.devserver=false;
-      (answers.repo)?obj.repo=true:obj.repo=false;
+      (answers.eslint)?obj.eslint=true:null;
+      (answers.wantAirbnb)?obj.wantAirbnb=true:null;
+      (answers.stylelint)?obj.stylelint=true:null;
+      (answers.server)?obj.devserver=true:null;
+      (answers.repo)?obj.repo=true:null;
       obj.repoUrl = answers.repo ? answers.repoUrl : false;
       obj.done = true;
     });
