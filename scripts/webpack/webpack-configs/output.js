@@ -1,4 +1,4 @@
 module.exports = {
-		path: '/dist',
+		path: require('path').join(__dirname,'../dist'),
 		filename: 'js/bundle.js'
 	}

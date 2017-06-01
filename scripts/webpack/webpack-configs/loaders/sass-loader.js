@@ -1,4 +1,4 @@
 module.exports = {
-                test: /\.scss$/,
+                test: /\.(sc|c)ss$/,
                 loader: 'style-loader!css-loader!sass-loader'
              }
