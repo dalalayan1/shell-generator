@@ -102,9 +102,9 @@ function generateProject(params){
   * @param {string} repo url
   */
 function doFusion(url){
-  process.stdout.write(chalk.yellow('\nadding files from external repo...\n'));
+  process.stdout.write(chalk.yellow('\nadding fusion components...\n'));
   execSync(`git subtree add --prefix=src/fusion ${url} master --squash`);
-  process.stdout.write(chalk.green('\nfiles from external repo added to src/fusion ✓'));
+  process.stdout.write(chalk.green('\nadded fusion components to src/fusion ✓'));
 }
 
 /**

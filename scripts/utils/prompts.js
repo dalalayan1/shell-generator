@@ -45,7 +45,7 @@ var questions=[{
   {
     type: "confirm",
     name: "repo",
-    message: "Do you have existing git repo?"
+    message: "Would you like to add Fusion components?"
   },
   {
     when: function (response) {
