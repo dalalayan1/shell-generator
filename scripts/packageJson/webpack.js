@@ -1,8 +1,8 @@
 module.exports = {
     scripts: {
-        "start": "webpack-dashboard -c cyan webpack-dev-server --content-base",
+        "start": "webpack-dev-server --content-base",
         "build": "npm run clean && webpack --config webpack.config.prod.js",
-        "server": "webpack-dashboard -c magenta node server"
+        "server": "node server"
     },
     devDependencies: {
         "babel-core": "*",
@@ -15,7 +15,6 @@ module.exports = {
         "style-loader": "*",
         "html-webpack-plugin": "*",
         "webpack": "^2.x.x",
-        "webpack-dashboard": "*",
         "webpack-dev-server": "^2.x.x",
         "webpack-hot-middleware": "*"
     }
