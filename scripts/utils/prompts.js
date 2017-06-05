@@ -4,6 +4,10 @@ console.log("Select the appropriate answers");
 //array of questions to be prompted to the user
 var questions=[{
     type: "confirm",
+    name: "gitInit",
+    message: "Would you like to turn it into Git repo?"
+  },{
+    type: "confirm",
     name: "wantFusion",
     message: "Would you like to add Fusion components?"
   },{
@@ -73,6 +77,7 @@ var questions=[{
 //object initialization
   var obj={
     done:false,
+    gitInit:false,
     wantFusion:false,
     fusionUrl:false,
     wantDemo:false,
@@ -99,10 +104,11 @@ var questions=[{
   var getPrompts = function getPrompts(){
 
       prompt(questions).then(function(answers){
-
-      (answers.wantFusion)?obj.wantFusion=true:null;
+        
+      (answers.gitInit) ? obj.gitInit=true : null;
+      (answers.wantFusion) ? obj.wantFusion=true : null;
       obj.fusionUrl = answers.wantFusion ? answers.fusionUrl : false;
-      (answers.wantDemo)?obj.wantDemo=true:null;
+      (answers.wantDemo) ? obj.wantDemo=true : null;
       obj.demoUrl = answers.wantDemo ? answers.demoUrl : false;
       (answers.taskrunner=='gulp' && !answers.wantDemo) ? obj.gulp=true:obj.webpack=true; 
       (answers.framework=='pure react') ? obj.react=true : obj.react_redux=true;
