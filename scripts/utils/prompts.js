@@ -3,6 +3,32 @@ console.log("Select the appropriate answers");
 
 //array of questions to be prompted to the user
 var questions=[{
+    type: "confirm",
+    name: "wantFusion",
+    message: "Would you like to add Fusion components?"
+  },{
+    when: function (response) {
+      return response.wantFusion;
+    },
+    type: "default",
+    name: "fusionUrl",
+    message: "\tOkay, your repo url: "
+  },{
+    type: "confirm",
+    name: "wantDemo",
+    message: "Would you like to install Demo app?"
+  },
+  {
+    when: function (response) {
+      return response.wantDemo;
+    },
+    type: "default",
+    name: "demoUrl",
+    message: "\tOkay, your repo url: "
+  },{
+    when: function (response) {
+      return !response.wantDemo;
+    },
     type: "list",
     name: "taskrunner",
     message: "Wich task-runner do you need?",
@@ -41,25 +67,16 @@ var questions=[{
     type: "confirm",
     name: "server",
     message: "Do you need a dev-server?"
-  },
-  {
-    type: "confirm",
-    name: "repo",
-    message: "Would you like to add Fusion components?"
-  },
-  {
-    when: function (response) {
-      return response.repo;
-    },
-    type: "default",
-    name: "repoUrl",
-    message: "\tOkay, your repo url: "
   }
   ];
 
 //object initialization
   var obj={
     done:false,
+    wantFusion:false,
+    fusionUrl:false,
+    wantDemo:false,
+    demoUrl:false,
     gulp:false,
     webpack:false,
     react:false,
@@ -69,9 +86,7 @@ var questions=[{
     eslint:false,
     wantAirbnb:false,
     stylelint:false,
-    devserver:false,
-    repo:false,
-    repoUrl:false
+    devserver:false
   };
 
   var prompt = inquirer.createPromptModule();
@@ -84,19 +99,21 @@ var questions=[{
   var getPrompts = function getPrompts(){
 
       prompt(questions).then(function(answers){
-      
-      (answers.taskrunner=='gulp')?obj.gulp=true:obj.webpack=true;
-      (answers.framework=='pure react')?obj.react=true:obj.react_redux=true;
-      (answers.css_preloader=='less')?obj.less=true:obj.sass=true;
-      (answers.eslint)?obj.eslint=true:null;
-      (answers.wantAirbnb)?obj.wantAirbnb=true:null;
-      (answers.stylelint)?obj.stylelint=true:null;
-      (answers.server)?obj.devserver=true:null;
-      (answers.repo)?obj.repo=true:null;
-      obj.repoUrl = answers.repo ? answers.repoUrl : false;
+
+      (answers.wantFusion)?obj.wantFusion=true:null;
+      obj.fusionUrl = answers.wantFusion ? answers.fusionUrl : false;
+      (answers.wantDemo)?obj.wantDemo=true:null;
+      obj.demoUrl = answers.wantDemo ? answers.demoUrl : false;
+      (answers.taskrunner=='gulp' && !answers.wantDemo) ? obj.gulp=true:obj.webpack=true; 
+      (answers.framework=='pure react') ? obj.react=true : obj.react_redux=true;
+      (answers.css_preloader=='less') ? obj.less=true : obj.sass=true;
+      (answers.eslint) ? obj.eslint=true:null;
+      (answers.wantAirbnb) ? obj.wantAirbnb=true : null;
+      (answers.stylelint) ? obj.stylelint=true : null;
+      (answers.server) ? obj.devserver=true : null;
       obj.done = true;
     });
-    
+  
     return obj;
 
   }
