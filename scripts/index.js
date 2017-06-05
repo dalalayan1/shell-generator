@@ -26,12 +26,12 @@ function generateProject(params){
   
   //checks for fusionUrl to add files from other repo
    if(params.wantFusion){
-     fetchFromExternalRepo(params.fusionUrl,'master','fusion');
+     fetchFromExternalRepo(params.fusionUrl,'fusion');
   }
-  
+
   //checks for demoUrl to add files from other repo
   if(params.wantDemo){
-     fetchFromExternalRepo(params.demoUrl,'demo','demo');
+     fetchFromExternalRepo(params.demoUrl,'demo');
   }
   
   var frameworkDeps,bundlerDeps;
@@ -106,12 +106,11 @@ function generateProject(params){
   * Does git subtree to inject files from external repo.
   * @param {string} repo url
   * @param {string} branch name
-  * @param {string} folder name
   */
-function fetchFromExternalRepo(url,branch,folder){
-  process.stdout.write(chalk.yellow(`\nadding ${folder} components...\n`));
-  execSync(`git subtree add --prefix=src/${folder} ${url} ${branch} --squash`);
-  process.stdout.write(chalk.green(`\nadded ${folder} components to `)+chalk.magenta(`src/${folder}`)+chalk.green(` ✓`));
+function fetchFromExternalRepo(url,branch){
+  process.stdout.write(chalk.yellow(`\nadding ${branch} components...\n`));
+  execSync(`git subtree add --prefix=src/${branch} ${url} ${branch} --squash`);
+  process.stdout.write(chalk.green(`\nadded ${branch} components to `)+chalk.magenta(`src/${branch}`)+chalk.green(` ✓`));
 }
 
 /**

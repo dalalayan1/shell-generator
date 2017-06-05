@@ -1,3 +1,5 @@
+process.env.NODE_ENV = 'development';
+
 var entry = require('./webpack-configs/entry.js');
 var output = require('./webpack-configs/output.js');
 var plugins = require('./webpack-configs/plugins');
