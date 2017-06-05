@@ -12,6 +12,7 @@ module.exports = {
         "babel-preset-react": "*",
         "babel-preset-stage-0": "*",
         "css-loader": "*",
+        "json-loader":"*",
         "style-loader": "*",
         "html-webpack-plugin": "*",
         "webpack": "^2.x.x",

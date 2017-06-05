@@ -4,6 +4,7 @@ module.exports = {
   },
   dependencies: {
     "axios": "*",
+    "classnames": "^2.2.5",
     "react": "^15.x.x",
     "react-dom": "^15.x.x",
     "react-redux": "^5.x.x",
