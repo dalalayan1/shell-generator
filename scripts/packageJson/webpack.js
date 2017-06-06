@@ -1,6 +1,6 @@
 module.exports = {
     scripts: {
-        "start": "webpack-dev-server --content-base",
+        "start": "webpack-dev-server --hot",
         "build": "npm run clean && webpack --config webpack.config.prod.js",
         "server": "node server"
     },
