@@ -1,5 +1,18 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { render } from 'react-dom';
+import { BrowserRouter,Route } from 'react-router-dom';
+
 import MainComponent from './components/main-component.js';
 
-ReactDOM.render(<MainComponent />, document.getElementById('app-root'));
+render(<BrowserRouter>
+		<div>
+			<Route exact={true} path="/" render = {() => (
+					<h1>Hey wasup? Hope you guys are enjoying our presentation!</h1>
+			)} />
+			<Route path="/main" render = {() => (
+						<Maincomponent/>
+			)}/>
+		</div>
+	</BrowserRouter>, 
+    document.getElementById('app-root')
+    );

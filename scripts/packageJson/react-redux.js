@@ -10,7 +10,8 @@ module.exports = {
     "react-redux": "^5.x.x",
     "redux": "^3.x.x",
     "redux-thunk": "*",
-    "redux-logger": "*"
+    "redux-logger": "*",
+    "react-router-dom": "^4.1.1"
   },
   devDependencies: {}
 }
