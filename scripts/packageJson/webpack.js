@@ -1,6 +1,6 @@
 module.exports = {
     scripts: {
-        "start": "webpack-dev-server --hot --history-api-fallback",
+        "start": "webpack-dev-server --open --hot --history-api-fallback",
         "build": "npm run clean && webpack --config webpack.config.prod.js",
         "server": "node server"
     },
