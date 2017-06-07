@@ -24,11 +24,6 @@ const pkgjson = path.join(process.cwd(),'package.json');
 function generateProject(params){
 
   process.stdout.write(chalk.cyan('\nBe patient! We are generating your project...\n'));
-
-  //checks if git init has to be done
-  if(params.gitInit){
-    doGitInit();
-  }
   
   //checks for fusionUrl to add files from other repo
    if(params.wantFusion){
@@ -185,7 +180,12 @@ function doCleanUp(){
   process.stdout.write(chalk.yellow('\ndoing clean up...'));
   execSync('rimraf scripts');
   process.stdout.write(chalk.green('\nclean up done ✓'));
-
+  
+  //checks if git init has to be done
+  if(params.gitInit){
+    doGitInit();
+  }
+  
   process.stdout.write(chalk.cyan('\nVoila! Seems like your project is ready! Happy coding :)'));
 }
 
