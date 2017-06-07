@@ -23,6 +23,9 @@ var questions=[{
     message: "Wich task-runner do you need?",
     choices: [ "gulp", "webpack" ]
   },{
+    when: function (response) {
+      return !response.wantDemo;
+    },
     type: "list",
     name: "framework",
     message: "Which framework do you need?",
@@ -99,7 +102,7 @@ var questions=[{
       (answers.stylelint) ? obj.stylelint=true : null;
       (answers.server) ? obj.devserver=true : null;
       obj.done = true;
-      
+
     });
   
     return obj;

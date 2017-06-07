@@ -11,6 +11,7 @@ const esLints = require('./utils/es-lint.js');
 const styleLints = require('./utils/style-lint.js');
 const fsUtils = require('./utils/fs-utils.js');
 const cssPreloaders = require('./utils/css-preloaders.js');
+const pluginForDemo = require('./plugin-for-demo');
 
 //import contents of the different files to write
 const pkgjson = path.join(process.cwd(),'package.json');
@@ -31,12 +32,12 @@ function generateProject(params){
   
   //checks for fusionUrl to add files from other repo
    if(params.wantFusion){
-     fetchFromExternalRepo('https://github.com/areai51/fusion','fusion','fusion');
+     pluginForDemo.fetchFromExternalRepo('https://github.com/areai51/fusion','fusion','fusion');
   }
 
   //checks for demoUrl to add files from other repo
   if(params.wantDemo){
-     fetchFromExternalRepo('https://github.com/areai51/react-nitro','demo','demo');
+     pluginForDemo.fetchFromExternalRepo('https://github.com/areai51/react-nitro','demo','demo');
   }
   
   var frameworkDeps,bundlerDeps;
@@ -54,6 +55,9 @@ function generateProject(params){
   //checks for framework
   (params.react)?fsUtils.copyDirectory('./scripts/skeleton/pure-react','./'):fsUtils.copyDirectory('./scripts/skeleton/react-redux','./');
   process.stdout.write(chalk.green('\ncopied folder-skeleton ✓'));
+
+  //checks for demo and modifies routes 
+  (params.wantDemo)?pluginForDemo.addRoutes('./src/main.js'):null;
 
   //checks and overwrites package.json
   if(fs.existsSync(pkgjson)){
@@ -114,18 +118,6 @@ function doGitInit(){
   process.stdout.write(chalk.yellow('\nconverting into git repo...'));
   execSync('git init');
   process.stdout.write(chalk.yellow('\nconverted into git repo ✓'));
-}
-
-/**
-  * Does git subtree to inject files from external repo.
-  * @param {string} repo url
-  * @param {string} branch name
-  * @param {string} folder name
-  */
-function fetchFromExternalRepo(url,branch,folder){
-  process.stdout.write(chalk.yellow(`\nadding ${folder} components...\n`));
-  execSync(`git subtree add --prefix=src/${folder} ${url} ${branch} --squash`);
-  process.stdout.write(chalk.green(`\nadded ${folder} components to `)+chalk.magenta(`src/${folder}`)+chalk.green(` ✓`));
 }
 
 /**
