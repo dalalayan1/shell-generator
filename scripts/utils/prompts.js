@@ -11,24 +11,9 @@ var questions=[{
     name: "wantFusion",
     message: "Would you like to add Fusion components?"
   },{
-    when: function (response) {
-      return response.wantFusion;
-    },
-    type: "default",
-    name: "fusionUrl",
-    message: "\tOkay, your repo url: "
-  },{
     type: "confirm",
     name: "wantDemo",
     message: "Would you like to install Demo app?"
-  },
-  {
-    when: function (response) {
-      return response.wantDemo;
-    },
-    type: "default",
-    name: "demoUrl",
-    message: "\tOkay, your repo url: "
   },{
     when: function (response) {
       return !response.wantDemo;
@@ -79,9 +64,7 @@ var questions=[{
     done:false,
     gitInit:false,
     wantFusion:false,
-    fusionUrl:false,
     wantDemo:false,
-    demoUrl:false,
     gulp:false,
     webpack:false,
     react:false,
@@ -107,9 +90,7 @@ var questions=[{
         
       (answers.gitInit) ? obj.gitInit=true : null;
       (answers.wantFusion) ? obj.wantFusion=true : null;
-      obj.fusionUrl = answers.wantFusion ? answers.fusionUrl : false;
       (answers.wantDemo) ? obj.wantDemo=true : null;
-      obj.demoUrl = answers.wantDemo ? answers.demoUrl : false;
       (answers.taskrunner=='gulp' && !answers.wantDemo) ? obj.gulp=true:obj.webpack=true; 
       (answers.framework=='pure react') ? obj.react=true : obj.react_redux=true;
       (answers.css_preloader=='less') ? obj.less=true : obj.sass=true;
@@ -118,6 +99,7 @@ var questions=[{
       (answers.stylelint) ? obj.stylelint=true : null;
       (answers.server) ? obj.devserver=true : null;
       obj.done = true;
+      
     });
   
     return obj;
