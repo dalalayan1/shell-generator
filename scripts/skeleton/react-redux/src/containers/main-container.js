@@ -5,10 +5,10 @@ import mainComponent from '../components/main-component.js';
 
 function mapStateToProps(state){
 
-    let {details} = state.mainComponentReducers;
+    let {feeling} = state.mainComponentReducers;
 
     return{
-       details: details 
+       feeling: feeling 
     };
 }
 

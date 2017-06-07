@@ -15,7 +15,7 @@ render(
 			<Route exact={true} path="/" render = {() => (
 					<h1>Hey wasup? Hope you guys are enjoying our presentation!</h1>
 			)} />
-			<Route path="/main" render = {() => (
+			<Route path="/dummy" render = {() => (
 					<Provider store={store}>
 						<Maincomponent/>
 					</Provider>

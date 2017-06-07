@@ -10,7 +10,7 @@ export default class mainComponent extends React.Component{
 		this.fetchData = this.fetchData.bind(this);
 		this.updateView = this.updateView.bind(this);
 		this.state = {
-			details: null,
+			response: null,
 			loader: null
 		}
 	}
@@ -18,12 +18,13 @@ export default class mainComponent extends React.Component{
 	fetchData(e){
 		e.preventDefault();
 		this.setState({loader:true});
-		this.props.getData('https://api.myjson.com/bins/mwnu9');
+		this.props.getData('https://api.myjson.com/bins/1787vh');
 	}
 
 	updateView(data){
+		console.log('data ',data);
 		this.setState({
-			details : data
+			response : data
 		});
 	}
 
@@ -38,8 +39,8 @@ export default class mainComponent extends React.Component{
 
 	componentWillReceiveProps(nextprops){
 		console.log("COMPONENT WILL RECIEVE PROPS!");
-		if(nextprops.details ){
-			this.updateView(nextprops.details);
+		if(nextprops.feeling ){
+			this.updateView(nextprops.feeling);
 		}
 	}
 
@@ -63,22 +64,21 @@ export default class mainComponent extends React.Component{
 		let startLoader = {
 			visibility : (!this.state.loader)?'visible':'hidden'
 		};
-		const data = <div className="details">
-						<h3>DETAILS : </h3>
-						<p>NAME : {this.state.details && this.state.details.name}</p>
-						<p>COMPANY : {this.state.details && this.state.details.company}</p>
+		const data = <div className="details">	
+						<h4><i>{this.state.response && this.state.response.feeling}</i></h4>
 					</div>;
-		const error = <div>Sorry! data not found...:(</div>;
+		const error = <div>Sorry! we are numb...:(</div>;
 		const loader = <h3 style={startLoader}>Loading...</h3>;
-		const displayDetails = (this.state.details==null)?loader:data;
+		const displayDetails = (this.state.response==null)?loader:data;
 		
 		return( 
 			<div className="main-component">
-				<h2>This is the main component which will take other child components</h2>
+				<h2>Hey we know you guys are actually enjoying it ;)</h2>
+				<h2>In that case, you might want to : </h2>
 				<Child1 />
 				<Child2 />
 				<Child3 />
-                <button onClick={this.fetchData}>FETCH DATA</button>
+                <button onClick={this.fetchData}>HOW DO WE FEEL?</button>
 				{this.state.loader && displayDetails}
 			</div>
 		);

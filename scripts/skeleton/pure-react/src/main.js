@@ -9,9 +9,7 @@ render(<BrowserRouter>
 			<Route exact={true} path="/" render = {() => (
 					<h1>Hey wasup? Hope you guys are enjoying our presentation!</h1>
 			)} />
-			<Route path="/main" render = {() => (
-						<Maincomponent/>
-			)}/>
+			<Route path="/dummy" component={MainComponent}/>
 		</div>
 	</BrowserRouter>, 
     document.getElementById('app-root')

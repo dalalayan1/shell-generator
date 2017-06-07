@@ -1,10 +1,10 @@
 export default function mainComponentReducers(state={
-    details: null
+    feeling: null
 },action){
     switch (action.type) {
         case 'GET_DATA_SUCCESS':{
                 let newState = Object.assign({},state, {
-                    details: action.payload
+                    feeling: action.payload
                 });
                 return newState;
             }

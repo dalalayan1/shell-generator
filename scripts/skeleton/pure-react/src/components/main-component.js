@@ -24,7 +24,8 @@ export default class Header extends React.Component{
 		console.log("COMPONENT RENDERS!");
 		return( 
 			<div className="main-component">
-				<h2>This is the main component which will take other child components</h2>
+				<h2>Hey we know you guys are actually enjoying it ;)</h2>
+				<h2>In that case, you might want to : </h2>
 				<Child1 />
 				<Child2 />
 				<Child3 />
