@@ -1,4 +1,6 @@
-var fsUtils = require('./utils/fs-utils.js');
+const chalk = require('chalk');
+const execSync = require('child_process').execSync;
+const fsUtils = require('../utils/fs-utils.js');
 
 /**
   * Modifies the main.js to add routes for demo app.
