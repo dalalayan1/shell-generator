@@ -19,7 +19,11 @@ render(
 		<BrowserRouter>
 		<div>
 		<Route exact={true} path="/" render = {() => (
-					<h1>Hey wasup? Hope you guys are enjoying our presentation!</h1>
+				<div>
+					<h1>Hey wasup? Hope you guys are enjoying our presentation!</h1><br/><br/>
+					<a href="/demo" className="href" style={{paddingLeft:"200px"}}>Kick start your work</a><br/><br/>
+					<a href="/dummy" className="href" style={{paddingLeft:"200px"}}>Dummy route</a>
+				</div>
 		)} />
 
 		<Route exact={true} path="/dummy" render = {() => (
