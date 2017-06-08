@@ -24,7 +24,7 @@ var injectAirbnb = function injectAirbnb(){
 
     fsUtils.writeToFile(eslintFile,JSON.stringify(eslintFileContents,null,2));
    
-    utils.updatePackageJson(["eslint-config-airbnb","eslint-plugin-jsx-a11y","eslint-plugin-react"]);
+    utils.updatePackageJson(["eslint-config-airbnb","eslint-plugin-jsx-a11y","eslint-plugin-react","eslint-plugin-import"]);
 }
 
 /**
