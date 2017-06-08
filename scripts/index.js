@@ -86,11 +86,11 @@ function generateProject(params){
     //checks for Airbnb
     if(params.wantAirbnb){
       process.stdout.write(chalk.yellow('\ninjecting Airbnb plugin...'));
-      (params.gulp)?esLints.insertEsLintForGulp('./gulpfile.js',true):esLints.insertEsLintForWebpack('./webpack-configs/module.js',true);
+      (params.gulp)?esLints.insertEsLintForGulp('./gulpfile.js',true):esLints.insertEsLintForWebpack('./webpack-configs/modules.js',true);
       process.stdout.write(chalk.green('\ninjected Airbnb plugin ✓'));
     }
     else {
-      (params.gulp)?esLints.insertEsLintForGulp('./gulpfile.js',false):esLints.insertEsLintForWebpack('./webpack-configs/module.js',false);
+      (params.gulp)?esLints.insertEsLintForGulp('./gulpfile.js',false):esLints.insertEsLintForWebpack('./webpack-configs/modules.js',false);
     }
     process.stdout.write(chalk.green('\nconfigured eslint ✓'));
   }
