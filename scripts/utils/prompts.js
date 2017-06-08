@@ -15,17 +15,11 @@ var questions=[{
     name: "wantDemo",
     message: "Would you like to install Demo app?"
   },{
-    when: function (response) {
-      return !response.wantDemo;
-    },
     type: "list",
     name: "taskrunner",
     message: "Wich task-runner do you need?",
     choices: [ "gulp", "webpack" ]
   },{
-    when: function (response) {
-      return !response.wantDemo;
-    },
     type: "list",
     name: "framework",
     message: "Which framework do you need?",
@@ -94,7 +88,7 @@ var questions=[{
       (answers.gitInit) ? obj.gitInit=true : null;
       (answers.wantFusion) ? obj.wantFusion=true : null;
       (answers.wantDemo) ? obj.wantDemo=true : null;
-      (answers.taskrunner=='gulp' && !answers.wantDemo) ? obj.gulp=true:obj.webpack=true; 
+      (answers.taskrunner=='gulp') ? obj.gulp=true:obj.webpack=true; 
       (answers.framework=='pure react') ? obj.react=true : obj.react_redux=true;
       (answers.css_preloader=='less') ? obj.less=true : obj.sass=true;
       (answers.eslint) ? obj.eslint=true:null;
