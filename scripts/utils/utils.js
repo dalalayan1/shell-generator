@@ -5,8 +5,10 @@ const fsUtils = require('./fs-utils.js');
 /**
   * Adds an express server for development.
   */
-var addDevserver = function addDevserver(){
-   fsUtils.copyDirectory('./scripts/devServer','./');
+var addDevserver = function addDevserver(ssr){
+  ssr ? fsUtils.copyDirectory('./scripts/devServer/ssr','./') : fsUtils.copyDirectory('./scripts/devServer/dev','./');
+  //  fsUtils.copyDirectory('./scripts/devServer/dev','./');
+
    updatePackageJson(["express","open"]);
 }
 

@@ -8,6 +8,7 @@ module.exports = {
     "react": "^15.x.x",
     "react-dom": "^15.x.x",
     "react-redux": "^5.x.x",
+    "react-router": "^2.3.0",
     "redux": "^3.x.x",
     "redux-thunk": "*",
     "redux-logger": "*",

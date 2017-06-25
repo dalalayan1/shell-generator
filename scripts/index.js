@@ -22,7 +22,6 @@ const pkgjson = path.join(process.cwd(),'package.json');
   * @param {object} answers to prompts 
   */
 function generateProject(params){
-
   process.stdout.write(chalk.cyan('\nBe patient! We are generating your project...\n'));
 
   //checks if git init has to be done
@@ -39,25 +38,71 @@ function generateProject(params){
   if(params.wantDemo){
      pluginForDemo.fetchFromExternalRepo('https://github.com/areai51/react-nitro','demo','demo');
   }
-  
   var frameworkDeps,bundlerDeps;
-
-  //injects bundler deps into package.json
-  bundlerDeps = (params.gulp)?require('./packageJson/gulp.js'):require('./packageJson/webpack.js');
-
-  //injects framework deps into package.json
-  frameworkDeps = (params.react)?require('./packageJson/react.js'):require('./packageJson/react-redux.js');
-
-  //checks for package bundler
-  (params.gulp)?fsUtils.copyDirectory('./scripts/gulp','./'):fsUtils.copyDirectory('./scripts/webpack','./');
-
   process.stdout.write(chalk.yellow('\ncopying folder-skeleton...'));
-  //checks for framework
-  (params.react)?fsUtils.copyDirectory('./scripts/skeleton/pure-react','./'):fsUtils.copyDirectory('./scripts/skeleton/react-redux','./');
+  if(params.ssr){
+    bundlerDeps = require('./packageJson/webpack-ssr.js');
+    frameworkDeps = require('./packageJson/react-redux.js');
+    fsUtils.copyDirectory('./scripts/webpack/webpack.config.ssr','./');
+    fsUtils.copyDirectory('./scripts/skeleton/react-ssr','./')
+  }else{
+    //injects bundler deps into package.json
+    bundlerDeps = (params.gulp)?require('./packageJson/gulp.js'):require('./packageJson/webpack.js');
+
+    //injects framework deps into package.json
+    frameworkDeps = (params.react)?require('./packageJson/react.js'):require('./packageJson/react-redux.js');
+
+    //checks for package bundler
+    (params.gulp)?fsUtils.copyDirectory('./scripts/gulp','./'):fsUtils.copyDirectory('./scripts/webpack','./');
+
+    (params.react)?fsUtils.copyDirectory('./scripts/skeleton/pure-react','./'):fsUtils.copyDirectory('./scripts/skeleton/react-redux','./');
+    
+    (params.wantDemo)?pluginForDemo.addRoutes('./src/main.js'):null;
+
+    //checks for LESS
+    if(params.less){
+      process.stdout.write(chalk.yellow('\nconfiguring LESS...'));
+      (params.gulp)?cssPreloaders.preloaderForGulp('./gulpfile.js','less'):cssPreloaders.preloaderForWebpack('./webpack-configs/modules.js','less');
+      process.stdout.write(chalk.green('\nconfigured LESS ✓'));
+    }
+
+    //checks for SASS 
+    if(params.sass){
+      process.stdout.write(chalk.yellow('\nconfiguring SASS...'));
+      (params.gulp)?cssPreloaders.preloaderForGulp('./gulpfile.js','sass'):cssPreloaders.preloaderForWebpack('./webpack-configs/modules.js','sass');
+      process.stdout.write(chalk.green('\nconfigured SASS ✓'));
+    }
+
+    
+    //checks for eslint
+    if(params.eslint){
+      process.stdout.write(chalk.yellow('\nconfiguring eslint...'));
+      //checks for Airbnb
+      if(params.wantAirbnb){
+        process.stdout.write(chalk.yellow('\ninjecting Airbnb plugin...'));
+        (params.gulp)?esLints.insertEsLintForGulp('./gulpfile.js',true):esLints.insertEsLintForWebpack('./webpack-configs/modules.js',true);
+        process.stdout.write(chalk.green('\ninjected Airbnb plugin ✓'));
+      }
+      else {
+        (params.gulp)?esLints.insertEsLintForGulp('./gulpfile.js',false):esLints.insertEsLintForWebpack('./webpack-configs/modules.js',false);
+      }
+      process.stdout.write(chalk.green('\nconfigured eslint ✓'));
+    }
+
+    //checks for stylelint
+    if(params.stylelint){
+      process.stdout.write(chalk.yellow('\nconfiguring stylelint...'));
+      (params.gulp)?styleLints.insertStyleLintForGulp('./gulpfile.js'):styleLints.insertStyleLintForWebpack(['./webpack.config.js','./webpack.config.prod.js']);
+      process.stdout.write(chalk.green('\nconfigured stylelint ✓'));
+    }
+  
+}
+  
+
   process.stdout.write(chalk.green('\ncopied folder-skeleton ✓'));
 
   //checks for demo and modifies routes 
-  (params.wantDemo)?pluginForDemo.addRoutes('./src/main.js'):null;
+  
 
   //checks and overwrites package.json
   if(fs.existsSync(pkgjson)){
@@ -66,46 +111,12 @@ function generateProject(params){
       process.stdout.write(chalk.green('\ncreated package.json ✓'));
     }
 
-  //checks for LESS
-  if(params.less){
-    process.stdout.write(chalk.yellow('\nconfiguring LESS...'));
-    (params.gulp)?cssPreloaders.preloaderForGulp('./gulpfile.js','less'):cssPreloaders.preloaderForWebpack('./webpack-configs/modules.js','less');
-    process.stdout.write(chalk.green('\nconfigured LESS ✓'));
-  }
-
-  //checks for SASS 
-  if(params.sass){
-    process.stdout.write(chalk.yellow('\nconfiguring SASS...'));
-    (params.gulp)?cssPreloaders.preloaderForGulp('./gulpfile.js','sass'):cssPreloaders.preloaderForWebpack('./webpack-configs/modules.js','sass');
-    process.stdout.write(chalk.green('\nconfigured SASS ✓'));
-  }
-
-  //checks for eslint
-  if(params.eslint){
-    process.stdout.write(chalk.yellow('\nconfiguring eslint...'));
-    //checks for Airbnb
-    if(params.wantAirbnb){
-      process.stdout.write(chalk.yellow('\ninjecting Airbnb plugin...'));
-      (params.gulp)?esLints.insertEsLintForGulp('./gulpfile.js',true):esLints.insertEsLintForWebpack('./webpack-configs/modules.js',true);
-      process.stdout.write(chalk.green('\ninjected Airbnb plugin ✓'));
-    }
-    else {
-      (params.gulp)?esLints.insertEsLintForGulp('./gulpfile.js',false):esLints.insertEsLintForWebpack('./webpack-configs/modules.js',false);
-    }
-    process.stdout.write(chalk.green('\nconfigured eslint ✓'));
-  }
-
-  //checks for stylelint
-  if(params.stylelint){
-    process.stdout.write(chalk.yellow('\nconfiguring stylelint...'));
-    (params.gulp)?styleLints.insertStyleLintForGulp('./gulpfile.js'):styleLints.insertStyleLintForWebpack(['./webpack.config.js','./webpack.config.prod.js']);
-    process.stdout.write(chalk.green('\nconfigured stylelint ✓'));
-  }
+  
 
   //checks for dev-server
   if(params.devserver){
     process.stdout.write(chalk.yellow('\nadding dev-server...'));
-    utils.addDevserver();
+    utils.addDevserver(params.ssr);
     process.stdout.write(chalk.green('\nadded dev-server ✓'));
   }
   
@@ -198,8 +209,9 @@ function init(){
      myVar = setInterval(function(){      
           if(answers.done){
             clearme();
+            // console.log(answers)
             generateProject(answers);
-            installDeps();
+            // installDeps();
 
             process.stdout.write(chalk.cyan('\nHold on! We are installing the dependencies...'));
 

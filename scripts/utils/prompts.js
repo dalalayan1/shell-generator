@@ -53,6 +53,11 @@ var questions=[{
     type: "confirm",
     name: "server",
     message: "Do you need a dev-server?"
+  },
+  {
+    type: "confirm",
+    name: "ssr",
+    message: "Do you want server side rendering?"
   }
   ];
 
@@ -71,7 +76,8 @@ var questions=[{
     eslint:false,
     wantAirbnb:false,
     stylelint:false,
-    devserver:false
+    devserver:false,
+    ssr:false
   };
 
   var prompt = inquirer.createPromptModule();
@@ -95,6 +101,7 @@ var questions=[{
       (answers.wantAirbnb) ? obj.wantAirbnb=true : null;
       (answers.stylelint) ? obj.stylelint=true : null;
       (answers.server) ? obj.devserver=true : null;
+      (answers.ssr) ? obj.ssr=true : null;
       obj.done = true;
 
     });
