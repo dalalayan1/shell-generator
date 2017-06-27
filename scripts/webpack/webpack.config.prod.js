@@ -7,12 +7,17 @@ var plugins = require('./webpack-configs/plugins');
 var extResolve = require('./webpack-configs/resolve.js');
 
 module.exports = {
+	devtool: '#inline-source-map',
 	entry:entry,
 	output: output,
 	module: modules,
 	resolve: extResolve,
 	plugins: [
-		plugins.HtmlWebpackPluginConfig
+		plugins.HtmlWebpackPluginConfig,
+		plugins.ModuleConcatenationPlugin,
+		plugins.HMRPlugin
 	]
 }
+
+
 

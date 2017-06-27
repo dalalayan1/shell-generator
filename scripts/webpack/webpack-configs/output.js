@@ -1,4 +1,7 @@
+var path = require('path');
+
 module.exports = {
-		path: require('path').join(__dirname,'../dist'),
-		filename: 'js/bundle.js'
+		path: path.join(__dirname, 'dist'),
+		filename: 'bundle.js',
+		publicPath: '/static/'
 	}

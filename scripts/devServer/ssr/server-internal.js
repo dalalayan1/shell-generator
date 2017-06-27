@@ -23,7 +23,7 @@ app.use('/', express.static(__dirname + '/static'));
 const webpack = require('webpack')
 const webpackDevMiddleware = require('webpack-dev-middleware')
 const webpackHotMiddleware = require('webpack-hot-middleware')
-const config = require('./webpack.config.ssr')
+const config = require('./webpack.config.prod')
 const compiler = webpack(config)
 app.use(webpackDevMiddleware(compiler, { noInfo: true, publicPath: "/static/" }))
 app.use(webpackHotMiddleware(compiler))
