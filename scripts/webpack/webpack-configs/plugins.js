@@ -22,7 +22,6 @@ var ModuleConcatenationPlugin = new webpack.optimize.ModuleConcatenationPlugin()
 
 //plugin to minify/uglify the bundled file   
 var UglifyJSPluginConfig = new webpack.optimize.UglifyJsPlugin({
-                                                                sourceMap: true,
                                                                 compress: true
                                                             });
                                                             
