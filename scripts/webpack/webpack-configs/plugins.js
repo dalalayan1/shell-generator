@@ -20,10 +20,23 @@ var HMRPlugin = new webpack.HotModuleReplacementPlugin();
 //webpack3 plugin for scope hoisting
 var ModuleConcatenationPlugin = new webpack.optimize.ModuleConcatenationPlugin();
 
+//plugin to minify/uglify the bundled file   
+var UglifyJSPluginConfig = new webpack.optimize.UglifyJsPlugin({
+                                                                sourceMap: true,
+                                                                compress: true
+                                                            });
+                                                            
+//plugin to extract out common chunks
+var CommonChunksPlugin = new webpack.optimize.CommonsChunkPlugin({
+                                                                name: ['commons','webpack_bootstrap']
+                                                            });
+
 
 module.exports = {
+    CommonChunksPlugin,
     HtmlWebpackPluginConfig,
     HMRPlugin,
     ModuleConcatenationPlugin,
-    StylelintWebpackPlugin
+    StylelintWebpackPlugin,
+    UglifyJSPluginConfig
 }
