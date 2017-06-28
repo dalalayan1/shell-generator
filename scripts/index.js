@@ -68,7 +68,13 @@ function generateProject(params) {
   //checks for package bundler
   (params.gulp) ? fsUtils.copyDirectory('./scripts/gulp', './') : fsUtils.copyDirectory('./scripts/webpack', './');
 
-  (params.react) ? fsUtils.copyDirectory('./scripts/skeleton/pure-react', './') : fsUtils.copyDirectory('./scripts/skeleton/react-redux', './');
+  //checks for ssr & copies the folder-skeleton
+  if(params.ssr){
+    fsUtils.copyDirectory('./scripts/skeleton/react-ssr', './')
+  }
+  else{
+    (params.react) ? fsUtils.copyDirectory('./scripts/skeleton/pure-react', './') : fsUtils.copyDirectory('./scripts/skeleton/react-redux', './');
+  }
 
   (params.wantDemo) ? pluginForDemo.addRoutes('./src/main.js') : null;
 
