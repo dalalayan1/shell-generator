@@ -1,0 +1,33 @@
+.acss-theme-zombie {
+  color: #00BC8C;
+}
+
+.acss-theme-zombie.acss-background-primary {
+  background: #222;
+}
+
+.acss-theme-zombie.acss-background-secondary {
+  background: #444;
+}
+
+.acss-theme-zombie.acss-background-tertiary {
+  background: #333;
+}
+
+.acss-theme-zombie.acss-header {
+  color: #00BC8C;
+}
+
+.acss-theme-zombie.acss-button {
+  background: #00BC8C;
+  color: #fff;
+}
+
+.acss-theme-zombie.acss-footer {
+  background: #000;
+  border-bottom: solid 5px #009688;
+}
+
+.acss-theme-zombie.acss-footer a {
+  color: #fff;
+}
