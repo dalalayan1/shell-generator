@@ -15,11 +15,21 @@ var questions=[{
     name: "wantDemo",
     message: "Would you like to install Demo app?"
   },{
+    type: "confirm",
+    name: "ssr",
+    message: "Do you want server side rendering?"
+  },{
+     when: function (response) {
+      return !response.ssr;
+    },
     type: "list",
     name: "taskrunner",
     message: "Wich task-runner do you need?",
     choices: [ "gulp", "webpack" ]
   },{
+     when: function (response) {
+      return !response.ssr;
+    },
     type: "list",
     name: "framework",
     message: "Which framework do you need?",
@@ -53,11 +63,6 @@ var questions=[{
     type: "confirm",
     name: "server",
     message: "Do you need a dev-server?"
-  },
-  {
-    type: "confirm",
-    name: "ssr",
-    message: "Do you want server side rendering?"
   }
   ];
 
@@ -94,18 +99,19 @@ var questions=[{
       (answers.gitInit) ? obj.gitInit=true : null;
       (answers.wantFusion) ? obj.wantFusion=true : null;
       (answers.wantDemo) ? obj.wantDemo=true : null;
-      (answers.taskrunner=='gulp') ? obj.gulp=true:obj.webpack=true; 
-      (answers.framework=='pure react') ? obj.react=true : obj.react_redux=true;
+      (answers.ssr) ? obj.ssr=true : null;
+      (!answers.ssr && answers.taskrunner=='gulp') ? obj.gulp=true:obj.webpack=true; 
+      (!answers.ssr && answers.framework=='pure react') ? obj.react=true : obj.react_redux=true;
       (answers.css_preloader=='less') ? obj.less=true : obj.sass=true;
       (answers.eslint) ? obj.eslint=true:null;
       (answers.wantAirbnb) ? obj.wantAirbnb=true : null;
       (answers.stylelint) ? obj.stylelint=true : null;
       (answers.server) ? obj.devserver=true : null;
-      (answers.ssr) ? obj.ssr=true : null;
+      
       obj.done = true;
 
     });
-  
+
     return obj;
 
   }

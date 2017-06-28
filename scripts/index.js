@@ -22,6 +22,7 @@ const pkgjson = path.join(process.cwd(), 'package.json');
  * @param {object} answers to prompts 
  */
 function generateProject(params) {
+  
   process.stdout.write(chalk.cyan('\nBe patient! We are generating your project...\n'));
 
   //checks if git init has to be done
