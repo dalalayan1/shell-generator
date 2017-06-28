@@ -212,9 +212,10 @@ function init() {
   myVar = setInterval(function () {
     if (answers.done) {
       clearme();
-      // console.log(answers)
+     
       generateProject(answers);
-      // installDeps();
+
+      installDeps();
 
       process.stdout.write(chalk.cyan('\nHold on! We are installing the dependencies...'));
 
