@@ -7,7 +7,6 @@ const fsUtils = require('./fs-utils.js');
   */
 var addDevserver = function addDevserver(ssr){
   ssr ? fsUtils.copyDirectory('./scripts/devServer/ssr','./') : fsUtils.copyDirectory('./scripts/devServer/dev','./');
-  //  fsUtils.copyDirectory('./scripts/devServer/dev','./');
 
    updatePackageJson(["express","open"]);
 }
