@@ -57,6 +57,14 @@ function generateProject(params) {
   //injects framework deps into package.json
   frameworkDeps = (params.react) ? require('./packageJson/react.js') : require('./packageJson/react-redux.js');
 
+  //checks and overwrites package.json
+  if (fs.existsSync(pkgjson)) {
+    console.log('hey ',frameworkDeps,bundlerDeps);
+    process.stdout.write(chalk.yellow('\ncreating package.json...'));
+    utils.createPkgJson(pkgjson, frameworkDeps, bundlerDeps);
+    process.stdout.write(chalk.green('\ncreated package.json ✓'));
+  }
+
   //checks for package bundler
   (params.gulp) ? fsUtils.copyDirectory('./scripts/gulp', './') : fsUtils.copyDirectory('./scripts/webpack', './');
 
@@ -103,18 +111,6 @@ function generateProject(params) {
 
 
   process.stdout.write(chalk.green('\ncopied folder-skeleton ✓'));
-
-  //checks for demo and modifies routes 
-
-
-  //checks and overwrites package.json
-  if (fs.existsSync(pkgjson)) {
-    process.stdout.write(chalk.yellow('\ncreating package.json...'));
-    utils.createPkgJson(pkgjson, frameworkDeps, bundlerDeps);
-    process.stdout.write(chalk.green('\ncreated package.json ✓'));
-  }
-
-
 
   //checks for dev-server
   if (params.devserver) {
