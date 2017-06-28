@@ -1,7 +1,5 @@
 module.exports = {
-  scripts: {
-    "clean": "rimraf dist"
-  },
+  scripts: {},
   dependencies: {
     "classnames": "^2.2.5",
     "react": "^15.x.x",

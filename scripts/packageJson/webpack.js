@@ -1,5 +1,6 @@
 module.exports = {
     scripts: {
+        "clean": "rimraf dist",
         "start": "webpack-dev-server --open --hot --history-api-fallback",
         "build": "npm run clean && webpack --config webpack.config.prod.js",
         "server": "node server"
