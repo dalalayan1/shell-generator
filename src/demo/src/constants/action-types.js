@@ -1,1 +1,0 @@
-export const cardSuccess = 'cardSuccess';
