@@ -59,7 +59,6 @@ function generateProject(params) {
 
   //checks and overwrites package.json
   if (fs.existsSync(pkgjson)) {
-    console.log('hey ',frameworkDeps,bundlerDeps);
     process.stdout.write(chalk.yellow('\ncreating package.json...'));
     utils.createPkgJson(pkgjson, frameworkDeps, bundlerDeps);
     process.stdout.write(chalk.green('\ncreated package.json ✓'));
