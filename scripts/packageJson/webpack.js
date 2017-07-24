@@ -20,6 +20,7 @@ module.exports = {
         "stylelint-webpack-plugin": "*",
         "webpack": "^2.x.x",
         "webpack-dev-server": "^2.x.x",
-        "webpack-hot-middleware": "*"
+        "webpack-hot-middleware": "*",
+        "url-loader":"*"
     }
 }
