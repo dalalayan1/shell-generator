@@ -1,4 +1,4 @@
 var loaders = require('./loaders');
 module.exports = {
-    loaders: [loaders.babelLoader,loaders.jsonLoader]
+    loaders: [loaders.sassLoader,loaders.babelLoader,loaders.jsonLoader,loaders.urlLoader]
 }
